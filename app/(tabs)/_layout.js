@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../../styles/globalStyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -13,6 +13,17 @@ import {
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
+
+  // Componente personalizado para el botón de la barra de pestañas
+  const CustomTabBarButton = ({ children, onPress }) => (
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.tabButton}
+      activeOpacity={1} // Desactiva el efecto de pulsación
+    >
+      {children}
+    </TouchableOpacity>
+  );
 
   return (
     <Tabs
@@ -32,6 +43,7 @@ export default function TabsLayout() {
               backgroundColor={focused ? colors.lightBlue : colors.primaryBlue}
             />
           ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
           tabBarIconStyle: styles.tabItem,
         }}
       />
@@ -44,6 +56,7 @@ export default function TabsLayout() {
               backgroundColor={focused ? colors.lightBlue : colors.primaryBlue}
             />
           ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
           tabBarIconStyle: styles.tabItem,
         }}
       />
@@ -56,6 +69,7 @@ export default function TabsLayout() {
               backgroundColor={focused ? colors.lightBlue : colors.primaryBlue}
             />
           ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
           tabBarIconStyle: styles.tabItem,
         }}
       />
@@ -69,6 +83,7 @@ export default function TabsLayout() {
               backgroundColor={focused ? colors.lightBlue : colors.primaryBlue}
             />
           ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
           tabBarIconStyle: styles.tabItem,
         }}
       />
@@ -81,6 +96,7 @@ export default function TabsLayout() {
               backgroundColor={focused ? colors.lightBlue : colors.primaryBlue}
             />
           ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
           tabBarIconStyle: styles.tabItem,
         }}
       />
@@ -92,8 +108,9 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: "row",
     backgroundColor: colors.primaryBlue,
-    justifyContent: "space-around",
+    justifyContent: "center",
     height: 80,
+    alignItems: "center",
   },
   tabItem: {
     width: 54,
@@ -103,4 +120,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
+  tabButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
+
