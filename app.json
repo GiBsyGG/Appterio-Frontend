@@ -23,6 +23,24 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "fonts": [
+      {
+        "name": "Inter-Regular",
+        "file": "./assets/fonts/Inter-Regular.ttf"
+      },
+      {
+        "name": "Inter-Bold",
+        "file": "./assets/fonts/Inter-Bold.ttf"
+      },
+      {
+        "name": "Inter-SemiBold",
+        "file": "./assets/fonts/Inter-SemiBold.ttf"
+      },
+      {
+        "name": "Inter-Medium",
+        "file": "./assets/fonts/Inter-Medium.ttf"
+      }
+    ]
   }
 }

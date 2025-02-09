@@ -49,56 +49,65 @@ export const spacing = {
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.white1,
     padding: spacing.medium,
   },
 
   mainTitle: {
     fontSize: fontSizes.xxxlarge,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     color: colors.black4,
     marginBottom: spacing.medium,
   },
 
   grayTitle: {
     fontSize: fontSizes.large,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
     color: colors.gray4,
   },
 
   screenTitle: {
-    fontSize: fontSizes.xlarge,
-    fontWeight: "bold",
+    fontSize: fontSizes.xxlarge,
+    fontFamily: "Inter-Bold",
     color: colors.black4,
     marginBottom: spacing.medium,
   },
 
   sectionTitle: {
-    fontSize: fontSizes.medium,
-    fontWeight: "bold",
+    fontSize: fontSizes.large,
+    fontFamily: "Inter-Bold",
     color: colors.black4,
   },
 
   title: {
     fontSize: fontSizes.medium,
-    fontWeight: "medium",
+    fontFamily: "Inter-SemiBold",
     color: colors.black4,
   },
 
   text: {
     fontSize: fontSizes.medium,
+    fontFamily: "Inter-Medium",
     color: colors.gray4,
   },
 
   smallTitle: {
     fontSize: fontSizes.small,
-    fontWeight: "medium",
+    fontFamily: "Inter-SemiBold",
     color: colors.black4,
   },
 
   smallText: {
     fontSize: fontSizes.small,
+    fontFamily: "Inter-Medium",
     color: colors.gray4,
   },
-});
 
+  lightText: {
+    fontSize: fontSizes.medium,
+    fontFamily: "Inter-Regular",
+    color: colors.gray2,
+  },
+});
