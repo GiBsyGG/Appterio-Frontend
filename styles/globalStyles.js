@@ -60,12 +60,14 @@ export const globalStyles = StyleSheet.create({
     fontFamily: "Inter-Bold",
     color: colors.black4,
     marginBottom: spacing.medium,
+    textAlign: "center",
   },
 
   grayTitle: {
     fontSize: fontSizes.large,
     fontFamily: "Inter-Bold",
     color: colors.gray4,
+    textAlign: "center",
   },
 
   screenTitle: {
