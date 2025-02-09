@@ -7,6 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "appterio",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -41,6 +42,9 @@
         "name": "Inter-Medium",
         "file": "./assets/fonts/Inter-Medium.ttf"
       }
+    ],
+    "plugins": [
+      "expo-router"
     ]
   }
 }
