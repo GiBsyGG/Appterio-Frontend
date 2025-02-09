@@ -46,15 +46,15 @@ export const spacing = {
   xlarge: 32,
 };
 
-export const globalStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.white1,
-    padding: spacing.medium,
-  },
+export const itemsSizes = {
+  tiny: 32,
+  small: 48,
+  medium: 64,
+  large: 96,
+  xlarge: 128,
+};
 
+export const globalStyles = StyleSheet.create({
   mainTitle: {
     fontSize: fontSizes.xxxlarge,
     fontFamily: "Inter-Bold",

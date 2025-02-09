@@ -1,8 +1,8 @@
 import { Slot } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
 import * as Font from "expo-font";
-import { globalStyles, colors } from "../styles/globalStyles";
+import { colors } from "../styles/globalStyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Layout() {
@@ -22,8 +22,6 @@ export default function Layout() {
     loadFonts();
   }, []);
 
-  const insets = useSafeAreaInsets();
-
   if (!fontsLoaded) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -33,15 +31,8 @@ export default function Layout() {
   }
 
   return (
-    <View
-      style={{
-        ...globalStyles.container,
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-      }}
-    >
-      <Slot name="content" />
+    <View style={{ flex: 1 }}>
+      <Slot />
     </View>
   );
 }
-
