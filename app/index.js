@@ -1,6 +1,6 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
-import Home from "../screens/home/home";
+import Home from "./(screens)/Home/Home";
 
 export default function Index() {
   return (
@@ -9,4 +9,3 @@ export default function Index() {
     </View>
   );
 }
-

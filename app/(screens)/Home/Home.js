@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
-import { globalStyles } from "../../styles/globalStyles";
-import { homeStyles } from "./home.styles";
+import { globalStyles } from "../../../styles/globalStyles";
+import { homeStyles } from "./Home.styles";
 
-const logo = require("../../assets/images/Logo.png");
+const logo = require("../../../assets/images/Logo.png");
 
 export default function Home() {
   return (
