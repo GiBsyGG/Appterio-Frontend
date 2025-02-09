@@ -60,6 +60,12 @@ export const globalStyles = StyleSheet.create({
     marginBottom: spacing.medium,
   },
 
+  grayTitle: {
+    fontSize: fontSizes.large,
+    fontWeight: "bold",
+    color: colors.gray4,
+  },
+
   screenTitle: {
     fontSize: fontSizes.xlarge,
     fontWeight: "bold",
@@ -95,3 +101,4 @@ export const globalStyles = StyleSheet.create({
     color: colors.gray4,
   },
 });
+
