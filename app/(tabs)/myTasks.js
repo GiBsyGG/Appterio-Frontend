@@ -1,10 +1,11 @@
-import { View, Text } from "react-native";
-import { globalStyles } from "../../styles/globalStyles";
+import { View } from "react-native";
+import ProceduresKeeper from "../(screens)/ProceduresKeeper";
+import { proceduresData } from "../../data/mockData/procedures";
 
 export default function Index() {
   return (
-    <View>
-      <Text style={globalStyles.mainTitle}>Mis Tareas</Text>
+    <View style={{ flex: 1 }}>
+      <ProceduresKeeper procedures={proceduresData} />
     </View>
   );
 }

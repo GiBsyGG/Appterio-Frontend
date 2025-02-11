@@ -1,9 +1,8 @@
 import { Slot } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import * as Font from "expo-font";
 import { colors } from "../styles/globalStyles";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Layout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
