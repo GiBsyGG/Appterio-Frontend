@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { colors } from "../../../styles/globalStyles";
+import { colors, globalStyles } from "../../../styles/globalStyles";
 
 export default function ButtonRegular({ title, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
-        <Text>{title}</Text>
+        <Text style={styles.buttonText}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -13,9 +13,15 @@ export default function ButtonRegular({ title, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.blue,
+    backgroundColor: colors.primaryBlue,
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
   },
+  buttonText: {
+    color: colors.white,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 });
+

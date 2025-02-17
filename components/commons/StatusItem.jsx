@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import { statusEnum } from "../../data/mockData/procedures";
+import { animalStatus } from "../../data/mockData/Animals";
 import { colors, globalStyles } from "../../styles/globalStyles";
 
 export default function StatusItem({ status }) {
@@ -11,6 +12,12 @@ export default function StatusItem({ status }) {
         return colors.primaryGreen;
       case statusEnum.HECHO:
         return colors.gray4;
+      case animalStatus.SALUDABLE:
+        return colors.primaryGreen;
+      case animalStatus.CUIDADO:
+        return colors.primaryOrange;
+      case animalStatus.DESCESO:
+        return colors.primaryRed;
       default:
         return colors.gray4;
     }
@@ -24,6 +31,12 @@ export default function StatusItem({ status }) {
         return colors.lightGreen;
       case statusEnum.HECHO:
         return colors.gray1;
+      case animalStatus.SALUDABLE:
+        return colors.lightGreen;
+      case animalStatus.CUIDADO:
+        return colors.lightOrange;
+      case animalStatus.DESCESO:
+        return colors.lightRed;
       default:
         return colors.gray1;
     }
