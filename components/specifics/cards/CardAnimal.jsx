@@ -1,25 +1,28 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors, globalStyles } from "../../../styles/globalStyles";
 import StatusItem from "../../commons/StatusItem";
+import { Link } from "expo-router";
 
 const AnimalAvatar = require("../../../assets/images/Animal-Avatars.png");
 
-export default function CardAnimal({ animal, isInvestigator, onPress }) {
+export default function CardAnimal({ animal, isInvestigator }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.card}>
-        <View style={styles.titleBox}>
-          <Text style={globalStyles.title}>Especimen {animal.id}</Text>
-          <Image source={AnimalAvatar} style={styles.avatar} />
+    <Link href={`/animals/${animal.id}`} asChild>
+      <TouchableOpacity>
+        <View style={styles.card}>
+          <View style={styles.titleBox}>
+            <Text style={globalStyles.title}>Especimen {animal.id}</Text>
+            <Image source={AnimalAvatar} style={styles.avatar} />
+          </View>
+          <View style={styles.cardInfoBox}>
+            <Text style={globalStyles.smallText}>
+              {animal.species} - {animal.sex}
+            </Text>
+            <StatusItem status={animal.state} />
+          </View>
         </View>
-        <View style={styles.cardInfoBox}>
-          <Text style={globalStyles.smallText}>
-            {animal.species} - {animal.sex}
-          </Text>
-          <StatusItem status={animal.state} />
-        </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Link>
   );
 }
 
@@ -55,3 +58,4 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+

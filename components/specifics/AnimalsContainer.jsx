@@ -4,11 +4,11 @@ import CardAnimal from "./cards/CardAnimal";
 export default function AnimalsContainer({ animals, isInvestigator }) {
   return (
     <View style={styles.container}>
-      {animals.map((request) => (
+      {animals.map((animal) => (
         <CardAnimal
-          animal={request}
+          animal={animal}
           isInvestigator={isInvestigator}
-          key={request.id}
+          key={animal.id}
         />
       ))}
     </View>
@@ -21,3 +21,4 @@ const styles = StyleSheet.create({
     gap: 16,
   },
 });
+
