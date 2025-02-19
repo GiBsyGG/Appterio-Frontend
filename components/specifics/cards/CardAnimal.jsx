@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 
 const AnimalAvatar = require("../../../assets/images/Animal-Avatars.png");
 
-export default function CardAnimal({ animal, isInvestigator }) {
+export default function CardAnimal({ animal }) {
   return (
     <Link href={`/animals/${animal.id}`} asChild>
       <TouchableOpacity>
@@ -58,4 +58,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-

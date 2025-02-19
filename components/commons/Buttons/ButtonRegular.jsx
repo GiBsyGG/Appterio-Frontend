@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { colors, globalStyles } from "../../../styles/globalStyles";
+import { colors } from "../../../styles/globalStyles";
 
 export default function ButtonRegular({ title, onPress }) {
   return (

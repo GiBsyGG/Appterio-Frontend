@@ -17,7 +17,7 @@ export default function RequestsInvestigator({ requests }) {
           <RequestsContainer requests={requests} isInvestigator={true} />
         </View>
       </ScrollView>
-      <CreateButton onPress={() => console.log("Create Request")} />
+      <CreateButton urlButton={"create/request"} />
     </View>
   );
 }

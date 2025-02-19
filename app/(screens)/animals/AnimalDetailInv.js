@@ -2,23 +2,18 @@ import { View, ScrollView, StyleSheet, Text } from "react-native";
 import AnimalInfoHeader from "../../../components/specifics/headers/AnimalInfoHeader";
 import CardObservation from "../../../components/specifics/cards/CardObservation";
 import {
-  SmallFood,
   SmallList,
   SmallHeart,
   SmallVaccine,
 } from "../../../components/commons/Icons";
-import { proceduresData, statusEnum } from "../../../data/mockData/procedures";
-import ProceduresContainer from "../../../components/specifics/ProceduresContainer";
+import CreateButton from "../../../components/commons/Buttons/CreateButton";
+import InvestigationsContainer from "../../../components/specifics/InvestigationsContainer";
 import { globalStyles, colors } from "../../../styles/globalStyles";
-import EditButton from "../../../components/specifics/buttons/EditButton";
-import FamilyButton from "../../../components/specifics/buttons/FamilyButton";
+import { investigations } from "../../../data/mockData/Investigations";
 
-export default function AnimalDetail({ animal }) {
-  const animalProcedures = proceduresData.filter(
-    (procedure) =>
-      procedure.specimenID === animal.id &&
-      (procedure.status === statusEnum.NUEVO ||
-        procedure.status === statusEnum.PENDIENTE)
+export default function AnimalDetailInv({ animal }) {
+  const animalInvestigations = investigations.filter(
+    (investigation) => investigation.animalId === animal.id
   );
 
   return (
@@ -27,12 +22,6 @@ export default function AnimalDetail({ animal }) {
         <View style={styles.container}>
           <AnimalInfoHeader animal={animal} />
           <View style={styles.containerObservations}>
-            <CardObservation
-              title={"Dieta"}
-              date={animal.details.dieta.lastUpdate}
-              description={animal.details.dieta.description}
-              IconComponent={SmallFood}
-            />
             <CardObservation
               title={"Últimas observaciones"}
               date={animal.details.ultimasObservaciones.lastUpdate}
@@ -51,21 +40,16 @@ export default function AnimalDetail({ animal }) {
               description={animal.details.vacunas.description}
               IconComponent={SmallVaccine}
             />
-            <View style={styles.proceduresContainer}>
+            <View style={styles.investigationsContainer}>
               <View style={styles.titleBox}>
-                <Text style={globalStyles.title}>
-                  Procedimientos Pendientes
-                </Text>
+                <Text style={globalStyles.title}>Investigaciones</Text>
               </View>
-              <ProceduresContainer procedures={animalProcedures} />
+              <InvestigationsContainer investigations={animalInvestigations} />
             </View>
           </View>
         </View>
       </ScrollView>
-      <View style={styles.ButtonsContainer}>
-        <FamilyButton animalId={animal.id} />
-        <EditButton animalId={animal.id} />
-      </View>
+      <CreateButton urlButton={"create/investigation"} />
     </View>
   );
 }
@@ -92,18 +76,9 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
   },
 
-  proceduresContainer: {
+  investigationsContainer: {
     justifyContent: "space-between",
     alignContent: "center",
     gap: 28,
-  },
-
-  ButtonsContainer: {
-    justifyContent: "space-between",
-    alignContent: "center",
-    gap: 28,
-    position: "absolute",
-    bottom: 40,
-    right: 20,
   },
 });

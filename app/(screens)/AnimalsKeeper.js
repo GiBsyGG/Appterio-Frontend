@@ -17,7 +17,7 @@ export default function AnimalsKeeper({ animals }) {
           <AnimalsContainer animals={animals} />
         </View>
       </ScrollView>
-      <CreateButton onPress={() => console.log("Create Animal")} />
+      <CreateButton urlButton={"create/animal"} />
     </View>
   );
 }
@@ -30,4 +30,3 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 });
-

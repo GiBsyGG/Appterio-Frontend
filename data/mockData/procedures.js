@@ -96,4 +96,14 @@ export const proceduresData = [
     specimenID: 10, // Asignado al Hamster Hembra (ID: 10)
     status: statusEnum.PENDIENTE,
   },
+  {
+    id: 11,
+    title: "Biopsia de tejido",
+    description:
+      "Toma de muestra de tejido para análisis histopatológico. Preparar material de sutura.",
+    date: "2023-10-20",
+    specimenID: 1, // Asignado a la Cobaya Hembra (ID: 6)
+    status: statusEnum.NUEVO,
+  },
 ];
+

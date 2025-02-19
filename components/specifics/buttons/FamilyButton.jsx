@@ -1,13 +1,13 @@
 import { View, StyleSheet } from "react-native";
 import { colors } from "../../../styles/globalStyles";
-import { AddIcon } from "../../commons/Icons";
+import { BranchIcon } from "../../commons/Icons";
 import { Link } from "expo-router";
 
-export default function CreateButton({ urlButton }) {
+export default function EditButton({ animalId }) {
   return (
-    <Link href={urlButton} style={styles.button}>
+    <Link href={`animals/family/${animalId}`} style={styles.button}>
       <View style={styles.buttonIconContainer}>
-        <AddIcon color={colors.white} />
+        <BranchIcon color={colors.white} />
       </View>
     </Link>
   );
@@ -15,22 +15,19 @@ export default function CreateButton({ urlButton }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.primaryBlue,
+    backgroundColor: colors.primaryGreen,
     borderRadius: 12,
     width: 60,
     height: 60,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    paddingLeft: 2,
-    paddingTop: 2,
+    paddingRight: 8,
   },
   buttonIconContainer: {
     justifyContent: "center",
     alignItems: "center",
+    paddingLeft: 8,
+    paddingTop: 4,
   },
 });
-

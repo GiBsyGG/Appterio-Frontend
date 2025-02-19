@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import { colors, globalStyles } from "../../../styles/globalStyles";
 
-export const CardObservation = ({
+export default function CardObservation({
   title,
   date,
   description,
   IconComponent,
-}) => {
+}) {
   return (
     <View style={styles.card}>
       <View style={styles.titleBox}>
@@ -19,7 +19,7 @@ export const CardObservation = ({
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   card: {
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
   },
 
   cardInfoBox: {
-    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
     paddingTop: 6,
   },
 });
+

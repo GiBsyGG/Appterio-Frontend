@@ -17,7 +17,7 @@ export default function ProceduresInvestigator({ procedures }) {
           <ProceduresContainer procedures={procedures} />
         </View>
       </ScrollView>
-      <CreateButton onPress={() => console.log("Create Procedure")} />
+      <CreateButton urlButton={"create/procedure"} />
     </View>
   );
 }
