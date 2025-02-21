@@ -93,14 +93,6 @@ const InvestigationForm = () => {
         )}
       </View>
 
-      <View style={styles.checkContainer}>
-        <Text>Investigación Completa</Text>
-        <Switch
-          value={isComplete}
-          onValueChange={(value) => setIsComplete(value)}
-        />
-      </View>
-
       <ButtonRegular
         title={"Abrir Investigación"}
         ButtonAction={() => handleSubmit()}
@@ -162,4 +154,3 @@ const styles = StyleSheet.create({
 });
 
 export default InvestigationForm;
-
