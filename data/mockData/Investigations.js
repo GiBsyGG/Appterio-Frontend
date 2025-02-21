@@ -77,4 +77,3 @@ export const investigations = [
     animalId: 1, // Relacionado con la cobaya macho (id: 5)
   },
 ];
-
