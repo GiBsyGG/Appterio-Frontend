@@ -1,16 +1,28 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors, globalStyles } from "../../../styles/globalStyles";
+import StatusItem from "../../commons/StatusItem";
 
-export default function CardInvestigation({ investigation }) {
+export default function CardInvestigation({ investigation, OnPress }) {
   return (
-    <View style={styles.card}>
-      <View style={styles.titleBox}>
-        <Text style={globalStyles.title}>{investigation.name}</Text>
+    <TouchableOpacity
+      onPress={() => {
+        OnPress(investigation);
+      }}
+    >
+      <View style={styles.card}>
+        <View style={styles.titleBox}>
+          <Text style={globalStyles.title} numberOfLines={2}>
+            {investigation.title}
+          </Text>
+        </View>
+        <View style={styles.cardInfoBox}>
+          <Text style={globalStyles.smallText} numberOfLines={3}>
+            {investigation.description}
+          </Text>
+          <StatusItem status={investigation.status} />
+        </View>
       </View>
-      <View style={styles.cardInfoBox}>
-        <Text style={globalStyles.smallText}>{investigation.description}</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -34,5 +46,7 @@ const styles = StyleSheet.create({
   cardInfoBox: {
     paddingHorizontal: 16,
     paddingVertical: 16,
+    justifyContent: "space-between",
+    gap: 16,
   },
 });

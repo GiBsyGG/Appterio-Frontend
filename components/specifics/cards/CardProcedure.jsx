@@ -12,10 +12,16 @@ export default function CardProcedure({ procedure, onPress }) {
   const animalInfo = GetAnimalById(procedure.specimenID);
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity
+      onPress={() => {
+        onPress(procedure);
+      }}
+    >
       <View style={styles.card}>
         <View style={styles.titleBox}>
-          <Text style={globalStyles.title}>{procedure.title}</Text>
+          <Text style={globalStyles.title} numberOfLines={2}>
+            {procedure.title}
+          </Text>
         </View>
         <View style={styles.descriptionBox}>
           <Text style={globalStyles.text} numberOfLines={3}>
@@ -34,7 +40,7 @@ export default function CardProcedure({ procedure, onPress }) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
-    height: 180,
+    height: 200,
     flex: 1,
     justifyContent: "space-around",
   },
@@ -42,7 +48,7 @@ const styles = StyleSheet.create({
   titleBox: {
     borderBottomWidth: 2,
     borderBottomColor: colors.gray1,
-    height: 40,
+    height: 50,
     justifyContent: "center",
     paddingHorizontal: 16,
   },

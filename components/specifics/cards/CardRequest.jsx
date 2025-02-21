@@ -12,20 +12,26 @@ export default function CardRequest({ request, isInvestigator, onPress }) {
   var profileInfo = null;
 
   if (isInvestigator) {
-    profileInfo = GetProfileById(request.adignadoID);
+    profileInfo = GetProfileById(request.asignadoID);
   } else {
     profileInfo = GetProfileById(request.solicitanteID);
   }
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity
+      onPress={() => {
+        onPress(request);
+      }}
+    >
       <View style={styles.card}>
         <View style={styles.titleBox}>
-          <Text style={globalStyles.title}>{request.titulo}</Text>
+          <Text style={globalStyles.title} numberOfLines={2}>
+            {request.title}
+          </Text>
         </View>
         <View style={styles.descriptionBox}>
           <Text style={globalStyles.text} numberOfLines={3}>
-            {request.descripcion}
+            {request.description}
           </Text>
         </View>
         <View style={styles.cardInfoBox}>
@@ -40,7 +46,7 @@ export default function CardRequest({ request, isInvestigator, onPress }) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
-    height: 180,
+    height: 200,
     flex: 1,
     justifyContent: "space-around",
   },
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
   titleBox: {
     borderBottomWidth: 2,
     borderBottomColor: colors.gray1,
-    height: 40,
+    height: 50,
     justifyContent: "center",
     paddingHorizontal: 16,
   },
