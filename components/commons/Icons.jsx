@@ -6,6 +6,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Feather from "@expo/vector-icons/Feather";
 import Entypo from "@expo/vector-icons/Entypo";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import { colors } from "../../styles/globalStyles";
 
@@ -39,6 +40,10 @@ export const EditIcon = (props) => (
 
 export const BranchIcon = (props) => (
   <Feather name="git-branch" style={styles.icon} {...props} />
+);
+
+export const BackIcon = (props) => (
+  <Ionicons name="chevron-back" style={styles.icon} {...props} />
 );
 
 export const SmallCircleUser = (props) => (

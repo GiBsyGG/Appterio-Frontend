@@ -41,7 +41,7 @@ export default function ModalDetails({
             {isEditable && (
               <ButtonRegular
                 title={buttonText}
-                onPress={() => {
+                ButtonAction={() => {
                   buttonAction();
                   SetIsModalOpen(false);
                 }}

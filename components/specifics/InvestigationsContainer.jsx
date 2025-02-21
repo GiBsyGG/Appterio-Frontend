@@ -3,6 +3,7 @@ import CardInvestigation from "./cards/CardInvestigation";
 import { useState } from "react";
 import { investigationEnum } from "../../data/mockData/Investigations";
 import ModalDetails from "../commons/ModalDetails";
+import { useRouter } from "expo-router";
 
 export default function InvestigationsContainer({ investigations }) {
   const [isModalOpen, SetIsModalOpen] = useState(false);
@@ -12,6 +13,8 @@ export default function InvestigationsContainer({ investigations }) {
     description: "",
     status: "",
   });
+
+  const router = useRouter();
 
   const OpenModal = (modalInvestigation) => {
     setInvestigationOpen(modalInvestigation);
@@ -30,7 +33,9 @@ export default function InvestigationsContainer({ investigations }) {
         title={investigationOpen.title}
         description={investigationOpen.description}
         buttonText={"Editar"}
-        buttonAction={() => console.log("Editar Investigación")}
+        buttonAction={() =>
+          router.push(`edit/investigation/${investigationOpen.id}`)
+        }
         isModalOpen={isModalOpen}
         SetIsModalOpen={SetIsModalOpen}
         elementStatus={investigationOpen.status}

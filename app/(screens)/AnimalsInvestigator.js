@@ -1,20 +1,28 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import AnimalsContainer from "../../components/specifics/AnimalsContainer";
 import { globalStyles } from "../../styles/globalStyles";
+import CreateButton from "../../components/commons/Buttons/CreateButton";
 
 export default function AnimalsInvestigator({ animals }) {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View>
-          <Text style={globalStyles.screenTitle}>Especimenes Investigados</Text>
-          <Text style={globalStyles.lightText}>
-            Procedimientos: {animals.length}
-          </Text>
+    <View>
+      <ScrollView>
+        <View style={styles.container}>
+          <View>
+            <Text style={globalStyles.screenTitle}>
+              Especimenes Investigados
+            </Text>
+            <Text style={globalStyles.lightText}>
+              Procedimientos: {animals.length}
+            </Text>
+          </View>
+          <AnimalsContainer animals={animals} />
         </View>
-        <AnimalsContainer animals={animals} />
+      </ScrollView>
+      <View style={styles.ButtonsContainer}>
+        <CreateButton urlButton={"create/investigation"} />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -24,5 +32,13 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
     flex: 1,
     gap: 8,
+  },
+  ButtonsContainer: {
+    justifyContent: "space-between",
+    alignContent: "center",
+    gap: 28,
+    position: "absolute",
+    bottom: 20,
+    right: 20,
   },
 });

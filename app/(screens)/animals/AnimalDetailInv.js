@@ -10,6 +10,7 @@ import CreateButton from "../../../components/commons/Buttons/CreateButton";
 import InvestigationsContainer from "../../../components/specifics/InvestigationsContainer";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import { investigations } from "../../../data/mockData/Investigations";
+import FamilyButton from "../../../components/specifics/buttons/FamilyButton";
 
 export default function AnimalDetailInv({ animal }) {
   const animalInvestigations = investigations.filter(
@@ -49,7 +50,10 @@ export default function AnimalDetailInv({ animal }) {
           </View>
         </View>
       </ScrollView>
-      <CreateButton urlButton={"create/investigation"} />
+      <View style={styles.ButtonsContainer}>
+        <FamilyButton animalId={animal.id} />
+        <CreateButton urlButton={"create/investigation"} />
+      </View>
     </View>
   );
 }
@@ -80,5 +84,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignContent: "center",
     gap: 28,
+  },
+  ButtonsContainer: {
+    justifyContent: "space-between",
+    alignContent: "center",
+    gap: 28,
+    position: "absolute",
+    bottom: 40,
+    right: 20,
   },
 });

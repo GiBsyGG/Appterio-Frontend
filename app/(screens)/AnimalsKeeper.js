@@ -17,7 +17,9 @@ export default function AnimalsKeeper({ animals }) {
           <AnimalsContainer animals={animals} />
         </View>
       </ScrollView>
-      <CreateButton urlButton={"create/animal"} />
+      <View style={styles.ButtonsContainer}>
+        <CreateButton urlButton={"create/animal"} />
+      </View>
     </View>
   );
 }
@@ -28,5 +30,13 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
     flex: 1,
     gap: 8,
+  },
+  ButtonsContainer: {
+    justifyContent: "space-between",
+    alignContent: "center",
+    gap: 28,
+    position: "absolute",
+    bottom: 20,
+    right: 20,
   },
 });

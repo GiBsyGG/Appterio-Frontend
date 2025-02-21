@@ -22,15 +22,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    paddingLeft: 2,
-    paddingTop: 2,
+    paddingRight: 8,
   },
   buttonIconContainer: {
     justifyContent: "center",
     alignItems: "center",
+    paddingLeft: 8,
   },
 });
-
