@@ -1,39 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { animals } from "../../../data/mockData/Animals";
+import { profiles } from "../../../data/mockData/Profiles";
 
-const InvestigationForm = () => {
+const RequestForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [open, setOpen] = useState(false);
-  const [selectedSpecimen, setSelectedSpecimen] = useState(null);
-  const [specimens, setSpecimens] = useState([]);
+  const [selectedKeeper, setSelectedKeeper] = useState(null);
+  const [keepers, setKeepers] = useState([]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
 
-  useEffect(() => {
-    getSpecimens();
-  }, []);
+  const getKeepers = () => {
+    const keepers = profiles.filter((profile) => profile.rol === "cuidador");
 
-  const getSpecimens = () => {
-    const specimens = animals.map((animal) => ({
-      label: animal.id,
-      value: animal.id,
+    const keepersChoices = keepers.map((profile) => ({
+      label: profile.nombre,
+      value: profile.id,
     }));
-    setSpecimens(specimens);
+    setKeepers(keepersChoices);
   };
+
+  useEffect(() => {
+    getKeepers();
+  }, []);
 
   const validateFields = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "El título es obligatorio";
     if (!description.trim())
       newErrors.description = "La descripción es obligatoria";
-    if (!selectedSpecimen)
+    if (!selectedKeeper)
       newErrors.selectedSpecimen = "El espécimen es obligatorio";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Retorna true si no hay errores
@@ -44,9 +46,9 @@ const InvestigationForm = () => {
       console.log("Formulario válido:", {
         title,
         description,
-        selectedSpecimen,
+        selectedKeeper,
       });
-      router.push("/animals");
+      router.push("/requests");
     } else {
       console.log("Formulario inválido");
     }
@@ -55,11 +57,11 @@ const InvestigationForm = () => {
   return (
     <View style={styles.container}>
       <View style={styles.backButton}>
-        <Link href={"/animals"}>
+        <Link href={"/requests"}>
           <BackIcon color={colors.gray2} />
         </Link>
       </View>
-      <Text style={globalStyles.screenTitle}>Abrir Investigación</Text>
+      <Text style={globalStyles.screenTitle}>Crear Solicitud</Text>
       <View>
         <TextInput
           style={styles.input}
@@ -87,12 +89,12 @@ const InvestigationForm = () => {
       <View>
         <DropDownPicker
           open={open}
-          value={selectedSpecimen}
-          items={specimens}
+          value={selectedKeeper}
+          items={keepers}
           setOpen={setOpen}
-          setValue={setSelectedSpecimen}
-          setItems={setSpecimens}
-          placeholder="Seleccione un espécimen"
+          setValue={setSelectedKeeper}
+          setItems={setKeepers}
+          placeholder="Seleccione un Cuidador"
           style={styles.dropdown}
           dropDownContainerStyle={styles.dropdownContainer}
         />
@@ -102,7 +104,7 @@ const InvestigationForm = () => {
       </View>
 
       <ButtonRegular
-        title={"Abrir Investigación"}
+        title={"Crear Solicitud"}
         ButtonAction={() => handleSubmit()}
       />
     </View>
@@ -155,10 +157,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   errorText: {
-    color: "red",
+    color: colors.primaryRed,
     fontSize: 12,
     marginBottom: 10,
   },
 });
 
-export default InvestigationForm;
+export default RequestForm;

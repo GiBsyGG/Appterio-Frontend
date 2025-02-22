@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -7,7 +7,7 @@ import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
 import { animals } from "../../../data/mockData/Animals";
 
-const InvestigationForm = () => {
+const ProcedureForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [open, setOpen] = useState(false);
@@ -16,10 +16,6 @@ const InvestigationForm = () => {
   const [errors, setErrors] = useState({});
   const router = useRouter();
 
-  useEffect(() => {
-    getSpecimens();
-  }, []);
-
   const getSpecimens = () => {
     const specimens = animals.map((animal) => ({
       label: animal.id,
@@ -27,6 +23,10 @@ const InvestigationForm = () => {
     }));
     setSpecimens(specimens);
   };
+
+  useEffect(() => {
+    getSpecimens();
+  }, []);
 
   const validateFields = () => {
     const newErrors = {};
@@ -46,7 +46,7 @@ const InvestigationForm = () => {
         description,
         selectedSpecimen,
       });
-      router.push("/animals");
+      router.push("/myTasks");
     } else {
       console.log("Formulario inválido");
     }
@@ -55,11 +55,11 @@ const InvestigationForm = () => {
   return (
     <View style={styles.container}>
       <View style={styles.backButton}>
-        <Link href={"/animals"}>
+        <Link href={"/myTasks"}>
           <BackIcon color={colors.gray2} />
         </Link>
       </View>
-      <Text style={globalStyles.screenTitle}>Abrir Investigación</Text>
+      <Text style={globalStyles.screenTitle}>Crear Procedimiento</Text>
       <View>
         <TextInput
           style={styles.input}
@@ -102,7 +102,7 @@ const InvestigationForm = () => {
       </View>
 
       <ButtonRegular
-        title={"Abrir Investigación"}
+        title={"Crear Procedimiento"}
         ButtonAction={() => handleSubmit()}
       />
     </View>
@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   errorText: {
-    color: "red",
+    color: colors.primaryRed,
     fontSize: 12,
     marginBottom: 10,
   },
 });
 
-export default InvestigationForm;
+export default ProcedureForm;
