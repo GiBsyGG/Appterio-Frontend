@@ -187,10 +187,7 @@ const AnimalForm = ({
           )}
         </View>
 
-        <ButtonRegular
-          title={"Registrar Animal"}
-          ButtonAction={() => handleSubmit()}
-        />
+        <ButtonRegular title={"editar"} ButtonAction={() => handleSubmit()} />
       </View>
     </ScrollView>
   );
@@ -252,4 +249,3 @@ const styles = StyleSheet.create({
 });
 
 export default AnimalForm;
-

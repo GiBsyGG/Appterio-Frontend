@@ -11,6 +11,8 @@ import InvestigationsContainer from "../../../components/specifics/Investigation
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import { investigations } from "../../../data/mockData/Investigations";
 import FamilyButton from "../../../components/specifics/buttons/FamilyButton";
+import { Link } from "expo-router";
+import { BackIcon } from "../../../components/commons/Icons";
 
 export default function AnimalDetailInv({ animal }) {
   const animalInvestigations = investigations.filter(
@@ -21,6 +23,11 @@ export default function AnimalDetailInv({ animal }) {
     <View>
       <ScrollView>
         <View style={styles.container}>
+          <View style={styles.backButtonContainer}>
+            <Link href={"/animals"}>
+              <BackIcon color={colors.gray2} />
+            </Link>
+          </View>
           <AnimalInfoHeader animal={animal} />
           <View style={styles.containerObservations}>
             <CardObservation
@@ -63,6 +70,12 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
     flex: 1,
     gap: 8,
+    justifyContent: "flex-start",
+  },
+  backButtonContainer: {
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   containerObservations: {
     flex: 1,

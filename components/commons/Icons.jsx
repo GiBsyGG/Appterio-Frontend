@@ -22,6 +22,10 @@ export const ProfileIcon = (props) => (
   <FontAwesome name="user" style={styles.icon} {...props} />
 );
 
+export const UsersIcon = (props) => (
+  <MaterialIcons name="groups" style={styles.icon} {...props} />
+);
+
 export const CheckListIcon = (props) => (
   <FontAwesome6 name="list-check" style={styles.icon} {...props} />
 );

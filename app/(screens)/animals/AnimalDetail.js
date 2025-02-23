@@ -12,6 +12,8 @@ import ProceduresContainer from "../../../components/specifics/ProceduresContain
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import EditButton from "../../../components/specifics/buttons/EditButton";
 import FamilyButton from "../../../components/specifics/buttons/FamilyButton";
+import { Link } from "expo-router";
+import { BackIcon } from "../../../components/commons/Icons";
 
 export default function AnimalDetail({ animal }) {
   const animalProcedures = proceduresData.filter(
@@ -25,6 +27,11 @@ export default function AnimalDetail({ animal }) {
     <View>
       <ScrollView>
         <View style={styles.container}>
+          <View style={styles.backButtonContainer}>
+            <Link href={"/animals"}>
+              <BackIcon color={colors.gray2} />
+            </Link>
+          </View>
           <AnimalInfoHeader animal={animal} />
           <View style={styles.containerObservations}>
             <CardObservation
@@ -75,6 +82,11 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
     flex: 1,
     gap: 8,
+  },
+  backButtonContainer: {
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   containerObservations: {
     flex: 1,

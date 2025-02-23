@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../../styles/globalStyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useState } from "react";
 
 import {
   PetIcon,
@@ -9,10 +10,12 @@ import {
   ProfileIcon,
   CheckListIcon,
   ClipBoardIcon,
+  UsersIcon,
 } from "../../components/commons/Icons";
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
+  const [isAdmin, setIsAdmin] = useState(true);
 
   // Componente personalizado para el botón de la barra de pestañas
   const CustomTabBarButton = ({ children, onPress }) => (
@@ -33,6 +36,7 @@ export default function TabsLayout() {
         tabBarShowLabel: false,
         sceneStyle: { padding: insets.top, paddingTop: insets.top },
       }}
+      initialRouteName="index"
     >
       <Tabs.Screen
         name="myTasks"
@@ -44,7 +48,9 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarIconStyle: styles.tabItem,
+          ...(!isAdmin
+            ? { tabBarItemStyle: styles.tabItem }
+            : { tabBarItemStyle: styles.hiddenIcon }),
         }}
       />
       <Tabs.Screen
@@ -57,7 +63,24 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarIconStyle: styles.tabItem,
+          ...(!isAdmin
+            ? { tabBarItemStyle: styles.tabItem }
+            : { tabBarItemStyle: styles.hiddenIcon }),
+        }}
+      />
+      <Tabs.Screen
+        name="users"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <UsersIcon
+              color={focused ? colors.primaryBlue : colors.white1}
+              backgroundColor={focused ? colors.lightBlue : colors.primaryBlue}
+            />
+          ),
+          tabBarButton: (props) => <CustomTabBarButton {...props} />,
+          ...(isAdmin
+            ? { tabBarItemStyle: styles.tabItem }
+            : { tabBarItemStyle: styles.hiddenIcon }),
         }}
       />
       <Tabs.Screen
@@ -70,7 +93,7 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarIconStyle: styles.tabItem,
+          tabBarItemStyle: styles.tabItem,
         }}
       />
 
@@ -84,7 +107,9 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarIconStyle: styles.tabItem,
+          ...(!isAdmin
+            ? { tabBarItemStyle: styles.tabItem }
+            : { tabBarItemStyle: styles.hiddenIcon }),
         }}
       />
       <Tabs.Screen
@@ -97,7 +122,7 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarIconStyle: styles.tabItem,
+          tabBarItemStyle: `${!isAdmin ? styles.tabItem : styles.hiddenIcon}`,
         }}
       />
     </Tabs>
@@ -120,11 +145,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
+  hiddenIcon: {
+    display: "none",
+    width: 0,
+    height: 0,
+    position: "absolute",
+  },
   tabButton: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
 });
-
