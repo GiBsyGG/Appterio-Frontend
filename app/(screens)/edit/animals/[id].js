@@ -16,6 +16,9 @@ export default function EditAnimalScreen() {
       animalSigns={animalSelected.details.signosClinicos.description}
       animalVaccines={animalSelected.details.vacunas.description}
       animalKeeper={animalSelected.keeperId}
+      animalState={animalSelected.state}
+      animalId={animalSelected.id}
     />
   );
 }
+

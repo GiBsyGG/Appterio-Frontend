@@ -15,6 +15,7 @@ const AnimalForm = ({
   animalSigns,
   animalVaccines,
   animalKeeper,
+  animalState,
 }) => {
   const getKeepers = () => {
     const keepers = profiles.filter((profile) => profile.rol === "cuidador");
@@ -36,7 +37,14 @@ const AnimalForm = ({
   const [clinicSigns, setClinicSigns] = useState(animalSigns);
   const [vaccines, setVaccines] = useState(animalVaccines);
   const [openKeepers, setOpenKeepers] = useState(false);
+  const [openStates, setOpenStates] = useState(false);
   const [selectedKeeper, setSelectedKeeper] = useState(animalKeeper);
+  const [selectedState, setSelectedState] = useState(animalState);
+  const [states, setStates] = useState([
+    { label: "Saludable", value: "Saludable" },
+    { label: "Cuidado", value: "Cuidado" },
+    { label: "Deceso", value: "Deceso" },
+  ]);
   const [keepers, setKeepers] = useState([]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
@@ -52,6 +60,7 @@ const AnimalForm = ({
     if (!vaccines.trim()) newErrors.vaccines = "Las vacunas son obligatorias";
     if (!selectedKeeper)
       newErrors.selectedKeeper = "El cuidador es obligatorio";
+    if (!selectedState) newErrors.selectedState = "El estado es obligatorio";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Retorna true si no hay errores
   };
@@ -160,6 +169,23 @@ const AnimalForm = ({
             <Text style={styles.errorText}>{errors.selectedKeeper}</Text>
           )}
         </View>
+        <View>
+          <DropDownPicker
+            open={openStates}
+            value={selectedState}
+            items={states}
+            setOpen={setOpenStates}
+            setValue={setSelectedState}
+            setItems={setStates}
+            placeholder="Seleccione un Estado"
+            style={styles.dropdown}
+            dropDownContainerStyle={styles.dropdownContainer}
+            textStyle={{ ...globalStyles.grayTitle, textAlign: "left" }}
+          />
+          {errors.selectedState && (
+            <Text style={styles.errorText}>{errors.selectedState}</Text>
+          )}
+        </View>
 
         <ButtonRegular
           title={"Registrar Animal"}
@@ -226,3 +252,4 @@ const styles = StyleSheet.create({
 });
 
 export default AnimalForm;
+
