@@ -5,6 +5,8 @@ import AnimalInfoHeader from "../../../../components/specifics/headers/AnimalInf
 import AnimalsContainer from "../../../../components/specifics/AnimalsContainer";
 import CardAnimal from "../../../../components/specifics/cards/CardAnimal";
 import { animals } from "../../../../data/mockData/Animals";
+import { Link } from "expo-router";
+import { BackIcon } from "../../../../components/commons/Icons";
 
 export default function AnimalFamily({ animalSelected }) {
   const animalChildrens = animals.filter(
@@ -22,6 +24,11 @@ export default function AnimalFamily({ animalSelected }) {
   return (
     <ScrollView>
       <View style={styles.container}>
+        <View style={styles.backButtonContainer}>
+          <Link href={`animals/${animalSelected.id}`}>
+            <BackIcon color={colors.gray2} />
+          </Link>
+        </View>
         <AnimalInfoHeader animal={animalSelected} />
         <View style={styles.MainContainer}>
           <View>
@@ -79,4 +86,10 @@ const styles = StyleSheet.create({
     gap: 28,
     justifyContent: "space-between",
   },
+  backButtonContainer: {
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
 });
+

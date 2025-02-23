@@ -15,7 +15,7 @@ import {
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Componente personalizado para el botón de la barra de pestañas
   const CustomTabBarButton = ({ children, onPress }) => (
@@ -157,3 +157,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
