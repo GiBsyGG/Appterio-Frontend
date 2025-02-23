@@ -11,10 +11,12 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.homeImage}></Image>
-      <Text style={globalStyles.mainTitle}>Bienvenido</Text>
-      <Text style={globalStyles.grayTitle}>
-        ¡Cuidamos tus datos, cuidamos tu bioterio!
-      </Text>
+      <View>
+        <Text style={globalStyles.mainTitle}>Bienvenido</Text>
+        <Text style={globalStyles.grayTitle}>
+          ¡Cuidamos tus datos, cuidamos tu bioterio!
+        </Text>
+      </View>
       <ButtonRegular
         title="Iniciar Sesión"
         ButtonAction={() => router.push("/autenticacion/login")}
@@ -28,10 +30,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    gap: 40,
   },
   homeImage: {
     width: 240,
     height: 240,
   },
 });
-
