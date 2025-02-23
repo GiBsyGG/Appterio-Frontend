@@ -1,9 +1,13 @@
 import React from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { globalStyles } from "../../styles/globalStyles";
+import ButtonRegular from "../../components/commons/Buttons/ButtonRegular";
+import { useRouter } from "expo-router";
 const logo = require("../../assets/images/Logo.png");
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.homeImage}></Image>
@@ -11,6 +15,10 @@ export default function Home() {
       <Text style={globalStyles.grayTitle}>
         ¡Cuidamos tus datos, cuidamos tu bioterio!
       </Text>
+      <ButtonRegular
+        title="Iniciar Sesión"
+        ButtonAction={() => router.push("/autenticacion/login")}
+      />
     </View>
   );
 }
@@ -26,3 +34,4 @@ const styles = StyleSheet.create({
     height: 240,
   },
 });
+
