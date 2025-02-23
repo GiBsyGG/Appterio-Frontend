@@ -4,7 +4,7 @@ import AnimalsKeeper from "../(screens)/AnimalsKeeper";
 import { animals } from "../../data/mockData/Animals";
 
 export default function Index() {
-  const isIvestigator = true;
+  const isIvestigator = false;
 
   return (
     <View>

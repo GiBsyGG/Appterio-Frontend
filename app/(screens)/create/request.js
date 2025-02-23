@@ -97,6 +97,7 @@ const RequestForm = () => {
           placeholder="Seleccione un Cuidador"
           style={styles.dropdown}
           dropDownContainerStyle={styles.dropdownContainer}
+          textStyle={{ ...globalStyles.grayTitle, textAlign: "left" }}
         />
         {errors.selectedSpecimen && (
           <Text style={styles.errorText}>{errors.selectedSpecimen}</Text>

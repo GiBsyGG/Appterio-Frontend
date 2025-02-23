@@ -95,6 +95,7 @@ const InvestigationForm = () => {
           placeholder="Seleccione un espécimen"
           style={styles.dropdown}
           dropDownContainerStyle={styles.dropdownContainer}
+          textStyle={{ ...globalStyles.grayTitle, textAlign: "left" }}
         />
         {errors.selectedSpecimen && (
           <Text style={styles.errorText}>{errors.selectedSpecimen}</Text>
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   errorText: {
-    color: "red",
+    color: colors.primaryRed,
     fontSize: 12,
     marginBottom: 10,
   },
