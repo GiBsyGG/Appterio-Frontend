@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 
 export default function EditButton({ animalId }) {
   return (
-    <Link href={`animals/edit/${animalId}`} style={styles.button}>
+    <Link href={`edit/animals/${animalId}`} style={styles.button}>
       <View style={styles.buttonIconContainer}>
         <EditIcon color={colors.white} />
       </View>

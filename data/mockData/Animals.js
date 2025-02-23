@@ -37,6 +37,7 @@ export const animals = [
     },
     parent1Id: 2,
     parent2Id: 4,
+    keeperId: 2,
   },
   {
     id: 2,
@@ -70,6 +71,7 @@ export const animals = [
     },
     parent1Id: 0,
     parent2Id: 0,
+    keeperId: 4,
   },
   {
     id: 3,
@@ -103,6 +105,7 @@ export const animals = [
     },
     parent1Id: 2,
     parent2Id: 4,
+    keeperId: 5,
   },
   {
     id: 4,
@@ -136,6 +139,7 @@ export const animals = [
     },
     parent1Id: 0,
     parent2Id: 0,
+    keeperId: 2,
   },
   {
     id: 5,
@@ -169,6 +173,7 @@ export const animals = [
     },
     parent1Id: 10,
     parent2Id: 9,
+    keeperId: 4,
   },
   {
     id: 6,
@@ -202,6 +207,7 @@ export const animals = [
     },
     parent1Id: 1,
     parent2Id: 0,
+    keeperId: 5,
   },
   {
     id: 7,
@@ -235,6 +241,7 @@ export const animals = [
     },
     parent1Id: 1,
     parent2Id: 0,
+    keeperId: 2,
   },
   {
     id: 8,
@@ -268,6 +275,7 @@ export const animals = [
     },
     parent1Id: 0,
     parent2Id: 0,
+    keeperId: 4,
   },
   {
     id: 9,
@@ -301,6 +309,7 @@ export const animals = [
     },
     parent1Id: 6,
     parent2Id: 7,
+    keeperId: 5,
   },
   {
     id: 10,
@@ -334,5 +343,6 @@ export const animals = [
     },
     parent1Id: 6,
     parent2Id: 7,
+    keeperId: 2,
   },
 ];

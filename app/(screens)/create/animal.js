@@ -15,7 +15,7 @@ import { Link, useRouter } from "expo-router";
 import { profiles } from "../../../data/mockData/Profiles";
 import { animals } from "../../../data/mockData/Animals";
 
-const RequestForm = () => {
+const AnimalForm = () => {
   const [family, setFamily] = useState("");
   const [weight, setWeight] = useState("");
   const [diet, setDiet] = useState("");
@@ -382,4 +382,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RequestForm;
+export default AnimalForm;

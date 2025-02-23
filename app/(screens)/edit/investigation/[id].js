@@ -2,7 +2,7 @@ import Investigation from "./Investigation";
 import { investigations } from "../../../../data/mockData/Investigations";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 
-export default function AnimalFamilyScreen() {
+export default function EditInvestigationScreen() {
   const { id } = useLocalSearchParams();
 
   const investigationSelected = investigations.find(
