@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { globalStyles, colors } from "../../styles/globalStyles";
-import { profiles } from "../../data/mockData/Profiles";
 import { GetInitials } from "../../utils/GetInitials";
 import {
   SmallCircleUser,
@@ -9,15 +8,16 @@ import {
   SmallGear,
 } from "../../components/commons/Icons";
 import ButtonRegular from "../../components/commons/Buttons/ButtonRegular";
+import useAuthStore from "../../Auth/authStore";
+import { useRouter } from "expo-router";
 
 const smallLogo = require("../../assets/images/Logo-Mini.png");
 
 export default function Profile() {
-  const currentId = 1;
+  const { user, logout } = useAuthStore();
+  const router = useRouter();
 
-  const currentProfile = profiles.find((profile) => profile.id === currentId);
-
-  const profileInitials = GetInitials(currentProfile.nombre);
+  const profileInitials = GetInitials(user.username);
 
   return (
     <View style={styles.container}>
@@ -37,7 +37,7 @@ export default function Profile() {
               <SmallCircleUser />
             </View>
             <View style={styles.infoDescription}>
-              <Text style={globalStyles.text}>{currentProfile.nombre}</Text>
+              <Text style={globalStyles.text}>{user.username}</Text>
             </View>
           </View>
         </View>
@@ -48,7 +48,7 @@ export default function Profile() {
               <SmallEmail />
             </View>
             <View style={styles.infoDescription}>
-              <Text style={globalStyles.text}>{currentProfile.correo}</Text>
+              <Text style={globalStyles.text}>{user.email}</Text>
             </View>
           </View>
         </View>
@@ -59,14 +59,17 @@ export default function Profile() {
               <SmallGear />
             </View>
             <View style={styles.infoDescription}>
-              <Text style={globalStyles.text}>{currentProfile.rol}</Text>
+              <Text style={globalStyles.text}>{user.role}</Text>
             </View>
           </View>
         </View>
       </View>
       <ButtonRegular
         title="Cerrar Sesion"
-        onPress={() => console.log("Cerrar")}
+        ButtonAction={() => {
+          logout();
+          router.push("/autenticacion/login"); // Redirige a la pantalla de inicio
+        }}
       />
     </View>
   );

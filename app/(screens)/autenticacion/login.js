@@ -5,6 +5,7 @@ import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
 import { profiles } from "../../../data/mockData/Profiles";
+import useAuthStore from "../../../Auth/authStore";
 
 const smallLogo = require("../../../assets/images/Logo-Mini.png");
 
@@ -13,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const router = useRouter();
+  const { login } = useAuthStore();
 
   const validateFields = () => {
     const newErrors = {};
@@ -25,14 +27,16 @@ const Login = () => {
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        mail,
-        password,
-      });
       const currentProfile = profiles.find(
         (profile) => profile.correo === mail
       );
       if (currentProfile.contrasena === password) {
+        login(
+          currentProfile.nombre,
+          currentProfile.rol,
+          currentProfile.correo,
+          toString(currentProfile.id)
+        );
         router.push("/");
       } else {
         const newErrors = {};
@@ -135,4 +139,3 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
-

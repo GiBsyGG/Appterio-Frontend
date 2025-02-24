@@ -3,10 +3,14 @@ import { Text, View, Image, StyleSheet } from "react-native";
 import { globalStyles } from "../../styles/globalStyles";
 import ButtonRegular from "../../components/commons/Buttons/ButtonRegular";
 import { useRouter } from "expo-router";
+import useAuthStore from "../../Auth/authStore";
+import { rolesEnum } from "../../utils/RolesEnum";
+
 const logo = require("../../assets/images/Logo.png");
 
 export default function Home() {
   const router = useRouter();
+  const { user } = useAuthStore();
 
   return (
     <View style={styles.container}>
@@ -17,10 +21,12 @@ export default function Home() {
           ¡Cuidamos tus datos, cuidamos tu bioterio!
         </Text>
       </View>
-      <ButtonRegular
-        title="Iniciar Sesión"
-        ButtonAction={() => router.push("/autenticacion/login")}
-      />
+      {user.role === rolesEnum.UNLOGED && (
+        <ButtonRegular
+          title="Iniciar sesión"
+          onPress={() => router.push("autenticacion/login")}
+        />
+      )}
     </View>
   );
 }

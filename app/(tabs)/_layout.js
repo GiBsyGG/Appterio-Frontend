@@ -2,7 +2,8 @@ import { Tabs } from "expo-router";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../../styles/globalStyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState } from "react";
+import { rolesEnum } from "../../utils/RolesEnum";
+import useAuthStore from "../../Auth/authStore";
 
 import {
   PetIcon,
@@ -15,8 +16,7 @@ import {
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
-  const [isAdmin, setIsAdmin] = useState(false);
-
+  const { user } = useAuthStore();
   // Componente personalizado para el botón de la barra de pestañas
   const CustomTabBarButton = ({ children, onPress }) => (
     <TouchableOpacity
@@ -48,7 +48,8 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          ...(!isAdmin
+          ...(user.role !== rolesEnum.UNLOGED &&
+          user.role !== rolesEnum.ADMINISTRADOR
             ? { tabBarItemStyle: styles.tabItem }
             : { tabBarItemStyle: styles.hiddenIcon }),
         }}
@@ -63,7 +64,8 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          ...(!isAdmin
+          ...(user.role !== rolesEnum.UNLOGED &&
+          user.role !== rolesEnum.ADMINISTRADOR
             ? { tabBarItemStyle: styles.tabItem }
             : { tabBarItemStyle: styles.hiddenIcon }),
         }}
@@ -78,7 +80,7 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          ...(isAdmin
+          ...(user.role === rolesEnum.ADMINISTRADOR
             ? { tabBarItemStyle: styles.tabItem }
             : { tabBarItemStyle: styles.hiddenIcon }),
         }}
@@ -107,7 +109,8 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          ...(!isAdmin
+          ...(user.role !== rolesEnum.UNLOGED &&
+          user.role !== rolesEnum.ADMINISTRADOR
             ? { tabBarItemStyle: styles.tabItem }
             : { tabBarItemStyle: styles.hiddenIcon }),
         }}
@@ -122,7 +125,7 @@ export default function TabsLayout() {
             />
           ),
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
-          tabBarItemStyle: `${!isAdmin ? styles.tabItem : styles.hiddenIcon}`,
+          tabBarItemStyle: styles.tabItem,
         }}
       />
     </Tabs>
@@ -157,4 +160,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-

@@ -43,7 +43,7 @@ const InvestigationForm = ({
           <BackIcon color={colors.gray2} />
         </Link>
       </View>
-      <Text style={globalStyles.screenTitle}>Abrir Investigación</Text>
+      <Text style={globalStyles.screenTitle}>Editar Investigación</Text>
       <View>
         <TextInput
           style={styles.input}
@@ -77,7 +77,7 @@ const InvestigationForm = ({
       </View>
 
       <ButtonRegular
-        title={"Abrir Investigación"}
+        title={"Editar Investigación"}
         ButtonAction={() => handleSubmit()}
       />
     </View>
