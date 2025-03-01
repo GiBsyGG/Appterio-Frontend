@@ -9,12 +9,12 @@ export default function CardUser({ user }) {
     <View style={styles.card}>
       <View style={styles.titleBox}>
         <Text style={globalStyles.title} numberOfLines={2}>
-          {user.nombre}
+          {user.name}
         </Text>
       </View>
       <View style={styles.descriptionBox}>
         <Text style={globalStyles.text} numberOfLines={3}>
-          {user.rol}
+          {user.role}
         </Text>
         <ButtonRegular
           title={"Editar"}
@@ -49,4 +49,3 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
-

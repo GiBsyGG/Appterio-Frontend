@@ -1,17 +1,33 @@
 import User from "./User";
-import { profiles } from "../../../../data/mockData/Profiles";
 import { useLocalSearchParams } from "expo-router/build/hooks";
+import { GetUsersDataById } from "../../../../services/gets/users";
+import { useEffect, useState } from "react";
+import { View, ActivityIndicator } from "react-native";
+import { colors } from "../../../../styles/globalStyles";
 
 export default function EditInvestigationScreen() {
   const { id } = useLocalSearchParams();
+  const [userData, setUserData] = useState();
 
-  const profileSelected = profiles.find((profile) => profile.id === Number(id));
+  useEffect(() => {
+    GetUsersDataById(id, setUserData);
+  }, [userData]);
+
+  if (!userData) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <User
-      initialName={profileSelected.nombre}
-      initialMail={profileSelected.correo}
-      initialRol={profileSelected.rol}
+      userId={userData.id}
+      initialName={userData.name}
+      initialMail={userData.email}
+      initialRol={userData.rol}
     />
   );
 }
+

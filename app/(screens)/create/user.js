@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
+import { PostUser } from "../../../services/posts/users";
 
 const UserForm = () => {
   const [userName, setUserName] = useState("");
@@ -15,7 +22,7 @@ const UserForm = () => {
   const [selectedRol, setSelectedRol] = useState(null);
   const [roles, setRoles] = useState([
     { label: "Cuidador", value: "cuidador" },
-    { label: "Investigador", value: "Investigador" },
+    { label: "Investigador", value: "investigador" },
     { label: "Administrador", value: "administrador" },
   ]);
   const [errors, setErrors] = useState({});
@@ -36,21 +43,27 @@ const UserForm = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Retorna true si no hay errores
   };
+  const [loadingRequest, setLoadingRequest] = useState(false);
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        userName,
-        mail,
-        password,
-        confirmPassword,
-        selectedRol,
+      setLoadingRequest(true);
+      PostUser(userName, mail, password, selectedRol).then(() => {
+        setLoadingRequest(false);
+        router.push("/users");
       });
-      router.push("/users");
     } else {
       console.log("Formulario inválido");
     }
   };
+
+  if (loadingRequest) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

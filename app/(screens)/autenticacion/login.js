@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Image } from "react-native";
-import { globalStyles, colors } from "../../../styles/globalStyles";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from "react-native";
+import { colors } from "../../../styles/globalStyles";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { profiles } from "../../../data/mockData/Profiles";
 import useAuthStore from "../../../Auth/authStore";
+import { AuthUser } from "../../../services/posts/auth";
 
 const smallLogo = require("../../../assets/images/Logo-Mini.png");
 
@@ -15,6 +22,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const { login } = useAuthStore();
+  const [loadingRequest, setLoadingRequest] = useState(false);
 
   const validateFields = () => {
     const newErrors = {};
@@ -27,26 +35,27 @@ const Login = () => {
 
   const handleSubmit = () => {
     if (validateFields()) {
-      const currentProfile = profiles.find(
-        (profile) => profile.correo === mail
-      );
-      if (currentProfile.contrasena === password) {
-        login(
-          currentProfile.nombre,
-          currentProfile.rol,
-          currentProfile.correo,
-          toString(currentProfile.id)
-        );
-        router.push("/");
-      } else {
-        const newErrors = {};
-        newErrors.invalidUser = "Usuario o contraseña incorrectos";
-        setErrors(newErrors);
-      }
+      setLoadingRequest(true);
+      AuthUser(mail, password, login).then((response) => {
+        if (response.status === 200) {
+          router.push("/");
+        } else {
+          setLoadingRequest(false);
+          setErrors({ invalidUser: "Usuario o contraseña incorrectos" });
+        }
+      });
     } else {
       console.log("Formulario inválido");
     }
   };
+
+  if (loadingRequest) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -59,10 +68,10 @@ const Login = () => {
         <Image source={smallLogo} style={styles.smallLogo} />
       </View>
       <View style={styles.inputsContainer}>
-        {errors.invalidUser && (
-          <Text style={styles.errorText}>{errors.invalidUser}</Text>
-        )}
         <View>
+          {errors.invalidUser && (
+            <Text style={styles.errorText}>{errors.invalidUser}</Text>
+          )}
           <TextInput
             style={styles.input}
             value={mail}

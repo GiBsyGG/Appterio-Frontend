@@ -24,7 +24,7 @@ export default function Home() {
       {user.role === rolesEnum.UNLOGED && (
         <ButtonRegular
           title="Iniciar sesión"
-          onPress={() => router.push("autenticacion/login")}
+          ButtonAction={() => router.push("autenticacion/login")}
         />
       )}
     </View>

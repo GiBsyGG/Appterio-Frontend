@@ -1,9 +1,31 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { globalStyles } from "../../styles/globalStyles";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { globalStyles, colors } from "../../styles/globalStyles";
 import CreateButton from "../../components/commons/Buttons/CreateButton";
 import UsersContainer from "../../components/specifics/UsersContainer";
+import { useEffect, useState } from "react";
+import { GetUsersData } from "../../services/gets/users";
 
-export default function ProceduresInvestigator({ users }) {
+export default function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    GetUsersData(setUsers);
+  }, [users]);
+
+  if (users.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
+
   return (
     <View>
       <ScrollView>
