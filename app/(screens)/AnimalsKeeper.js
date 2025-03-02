@@ -5,7 +5,7 @@ import CreateButton from "../../components/commons/Buttons/CreateButton";
 
 export default function AnimalsKeeper({ animals }) {
   return (
-    <View>
+    <View style={{ height: "100%", position: "relative" }}>
       <ScrollView>
         <View style={styles.container}>
           <View>

@@ -1,11 +1,35 @@
 import AnimalFamily from "./AnimalFamily";
-import { animals } from "../../../../data/mockData/Animals";
 import { useLocalSearchParams } from "expo-router/build/hooks";
+import { GetAnimalFamily } from "../../../../services/gets/animals";
+import { useEffect, useState } from "react";
+import { View, ActivityIndicator } from "react-native";
+import { colors } from "../../../../styles/globalStyles";
 
 export default function AnimalFamilyScreen() {
   const { id } = useLocalSearchParams();
 
-  const animalSelected = animals.find((animal) => animal.id === Number(id));
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  return <AnimalFamily animalSelected={animalSelected} />;
+  useEffect(() => {
+    GetAnimalFamily(id).then((data) => {
+      setLoading(false);
+      setData(data);
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
+
+  return (
+    <AnimalFamily
+      animalSelected={data.animalSelected}
+      animalFamily={data.animalFamily}
+    />
+  );
 }

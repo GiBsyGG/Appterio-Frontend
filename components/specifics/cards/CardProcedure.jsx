@@ -1,15 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors, globalStyles } from "../../../styles/globalStyles";
-import { animals } from "../../../data/mockData/Animals";
 import AnimalResume from "../resumeInfo/AnimalResume";
 import StatusItem from "../../commons/StatusItem";
 
 export default function CardProcedure({ procedure, onPress }) {
-  const GetAnimalById = (id) => {
-    return animals.find((animal) => animal.id === id);
-  };
-
-  const animalInfo = GetAnimalById(procedure.specimenID);
+  console.log(procedure);
 
   return (
     <TouchableOpacity
@@ -29,7 +24,7 @@ export default function CardProcedure({ procedure, onPress }) {
           </Text>
         </View>
         <View style={styles.cardInfoBox}>
-          <AnimalResume animal={animalInfo} />
+          <AnimalResume animal={procedure.animalInfo} />
           <StatusItem status={procedure.status} />
         </View>
       </View>
@@ -67,3 +62,4 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
+

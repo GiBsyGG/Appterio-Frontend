@@ -6,14 +6,16 @@ import {
   StyleSheet,
   Switch,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { profiles } from "../../../data/mockData/Profiles";
-import { animals } from "../../../data/mockData/Animals";
+import { PostAnimal } from "../../../services/posts/animal";
+import { GetKeepersData } from "../../../services/gets/users";
+import { GetAliveAnimalsData } from "../../../services/gets/animals";
 
 const AnimalForm = () => {
   const [family, setFamily] = useState("");
@@ -32,22 +34,23 @@ const AnimalForm = () => {
   const [selectedSpecies, setSelectedSpecies] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [labAnimals, setLabAnimals] = useState([]);
-  const [parent1Id, setParent1Id] = useState(0);
-  const [parent2Id, setParent2Id] = useState(0);
+  const [parent1Id, setParent1Id] = useState("0");
+  const [parent2Id, setParent2Id] = useState("0");
   const [keepers, setKeepers] = useState([]);
   const [species, setSpecies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [errors, setErrors] = useState({});
+  const [loadingRequest, setLoadingRequest] = useState(false);
   const router = useRouter();
 
   const getKeepers = () => {
-    const keepers = profiles.filter((profile) => profile.rol === "cuidador");
-
-    const keepersChoices = keepers.map((profile) => ({
-      label: profile.nombre,
-      value: profile.id,
-    }));
-    setKeepers(keepersChoices);
+    GetKeepersData().then((response) => {
+      const keepers = response.map((keeper) => ({
+        label: keeper.name,
+        value: keeper.id,
+      }));
+      setKeepers(keepers);
+    });
   };
 
   const getSpecies = () => {
@@ -61,17 +64,19 @@ const AnimalForm = () => {
   };
 
   const getLabAnimals = () => {
-    const labAnimals = animals.map((animal) => ({
-      label: animal.id,
-      value: animal.id,
-    }));
-    setLabAnimals(labAnimals);
+    GetAliveAnimalsData().then((response) => {
+      const labAnimals = response.map((animal) => ({
+        label: animal.family + " - " + animal.species + " - " + animal.genre,
+        value: animal.id,
+      }));
+      setLabAnimals(labAnimals);
+    });
   };
 
   const getGenres = () => {
     const genres = [
-      { label: "Macho", value: "Macho" },
-      { label: "Hembra", value: "Hembra" },
+      { label: "Macho", value: "MACHO" },
+      { label: "Hembra", value: "HEMBRA" },
     ];
     setGenres(genres);
   };
@@ -102,31 +107,70 @@ const AnimalForm = () => {
       newErrors.selectedParent1 = "El campo es obligatorio";
     if (isBornInLab && !parent2Id)
       newErrors.selectedParent2 = "El campo es obligatorio";
+    if (isBornInLab && parent1Id === parent2Id) {
+      newErrors.selectedParent2 = "Los padres no pueden ser iguales";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Retorna true si no hay errores
   };
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        selectedSpecies,
-        selectedGenre,
-        family,
-        weight,
-        diet,
-        observations,
-        clinicSigns,
-        vaccines,
-        isBornInLab,
-        parent1Id,
-        parent2Id,
-        selectedKeeper,
+      var newAnimal;
+      if (isBornInLab) {
+        newAnimal = {
+          name: "animal",
+          species: selectedSpecies,
+          sex: selectedGenre,
+          health_status: "SALUDABLE",
+          weight: weight,
+          date_birth: new Date().toISOString().split("T")[0],
+          age: 1,
+          origin: isBornInLab ? "Bioterio" : "Externo",
+          family: family,
+          diet: diet,
+          last_observations: observations,
+          clinical_signs: clinicSigns,
+          vaccines: vaccines,
+          parent1_id: parent1Id,
+          parent2_id: parent2Id,
+          keeper_id: selectedKeeper,
+        };
+      } else {
+        newAnimal = {
+          name: "animal",
+          species: selectedSpecies,
+          sex: selectedGenre,
+          health_status: "SALUDABLE",
+          weight: weight,
+          date_birth: new Date().toISOString().split("T")[0],
+          age: 1,
+          origin: isBornInLab ? "Bioterio" : "Externo",
+          family: family,
+          diet: diet,
+          last_observations: observations,
+          clinical_signs: clinicSigns,
+          vaccines: vaccines,
+          keeper_id: selectedKeeper,
+        };
+      }
+      setLoadingRequest(true);
+      PostAnimal(newAnimal).then(() => {
+        setLoadingRequest(false);
+        router.push("/animals");
       });
-      router.push("/animals");
     } else {
       console.log("Formulario inválido");
     }
   };
+
+  if (loadingRequest) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <ScrollView
@@ -383,3 +427,4 @@ const styles = StyleSheet.create({
 });
 
 export default AnimalForm;
+

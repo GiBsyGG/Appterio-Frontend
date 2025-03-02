@@ -5,7 +5,7 @@ import CreateButton from "../../components/commons/Buttons/CreateButton";
 
 export default function AnimalsInvestigator({ animals }) {
   return (
-    <View>
+    <View style={{ height: "100%", position: "relative" }}>
       <ScrollView>
         <View style={styles.container}>
           <View>
@@ -13,7 +13,7 @@ export default function AnimalsInvestigator({ animals }) {
               Especimenes Investigados
             </Text>
             <Text style={globalStyles.lightText}>
-              Procedimientos: {animals.length}
+              Animales: {animals.length}
             </Text>
           </View>
           <AnimalsContainer animals={animals} />
@@ -42,3 +42,4 @@ const styles = StyleSheet.create({
     right: 20,
   },
 });
+

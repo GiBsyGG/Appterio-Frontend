@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors, globalStyles } from "../../../styles/globalStyles";
 import StatusItem from "../../commons/StatusItem";
 import { Link } from "expo-router";
+import { GetAnimalName } from "../../../utils/GetAnimalName";
 
 const AnimalAvatar = require("../../../assets/images/Animal-Avatars.png");
 
@@ -11,14 +12,16 @@ export default function CardAnimal({ animal }) {
       <TouchableOpacity>
         <View style={styles.card}>
           <View style={styles.titleBox}>
-            <Text style={globalStyles.title}>Especimen {animal.id}</Text>
+            <Text style={globalStyles.title}>
+              Especimen {GetAnimalName(animal.id, animal.family)}
+            </Text>
             <Image source={AnimalAvatar} style={styles.avatar} />
           </View>
           <View style={styles.cardInfoBox}>
             <Text style={globalStyles.smallText}>
               {animal.species} - {animal.sex}
             </Text>
-            <StatusItem status={animal.state} />
+            <StatusItem status={animal.health_status} />
           </View>
         </View>
       </TouchableOpacity>

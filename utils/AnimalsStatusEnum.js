@@ -1,5 +1,5 @@
 export const animalStatus = {
   SALUDABLE: "SALUDABLE",
-  DESCESO: "DESCESO",
+  DESCESO: "DECESO",
   CUIDADO: "CUIDADO",
 };

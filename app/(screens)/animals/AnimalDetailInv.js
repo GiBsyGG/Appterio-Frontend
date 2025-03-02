@@ -9,15 +9,22 @@ import {
 import CreateButton from "../../../components/commons/Buttons/CreateButton";
 import InvestigationsContainer from "../../../components/specifics/InvestigationsContainer";
 import { globalStyles, colors } from "../../../styles/globalStyles";
-import { investigations } from "../../../data/mockData/Investigations";
 import FamilyButton from "../../../components/specifics/buttons/FamilyButton";
 import { Link } from "expo-router";
 import { BackIcon } from "../../../components/commons/Icons";
 
 export default function AnimalDetailInv({ animal }) {
-  const animalInvestigations = investigations.filter(
-    (investigation) => investigation.animalId === animal.id
-  );
+  const researchesModified = animal.researches.map((research) => {
+    return {
+      ...research,
+      animalInfo: {
+        id: animal.id,
+        sex: animal.sex,
+        family: animal.family,
+        species: animal.species,
+      },
+    };
+  });
 
   return (
     <View>
@@ -32,27 +39,33 @@ export default function AnimalDetailInv({ animal }) {
           <View style={styles.containerObservations}>
             <CardObservation
               title={"Últimas observaciones"}
-              date={animal.details.ultimasObservaciones.lastUpdate}
-              description={animal.details.ultimasObservaciones.description}
+              date={animal.details.last_observations.last_update}
+              description={animal.details.last_observations.last_update}
               IconComponent={SmallList}
             />
             <CardObservation
               title={"Signos clínicos"}
-              date={animal.details.signosClinicos.lastUpdate}
-              description={animal.details.signosClinicos.description}
+              date={animal.details.clinical_signs.last_update}
+              description={animal.details.clinical_signs.last_update}
               IconComponent={SmallHeart}
             />
             <CardObservation
               title={"Vacunas"}
-              date={animal.details.vacunas.lastUpdate}
-              description={animal.details.vacunas.description}
+              date={animal.details.vaccines.last_update}
+              description={animal.details.vaccines.description}
               IconComponent={SmallVaccine}
             />
             <View style={styles.investigationsContainer}>
               <View style={styles.titleBox}>
                 <Text style={globalStyles.title}>Investigaciones</Text>
               </View>
-              <InvestigationsContainer investigations={animalInvestigations} />
+              {researchesModified.length > 0 ? (
+                <InvestigationsContainer investigations={researchesModified} />
+              ) : (
+                <Text style={globalStyles.text}>
+                  No se han registrado investigaciones
+                </Text>
+              )}
             </View>
           </View>
         </View>

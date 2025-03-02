@@ -18,7 +18,6 @@ export default function ProceduresContainer({ procedures }) {
     setProcedureOpen(Modalprocedure);
     SetIsModalOpen(true);
   };
-
   return (
     <View style={styles.container}>
       {procedures.map((procedure) => (

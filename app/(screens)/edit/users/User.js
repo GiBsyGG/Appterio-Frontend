@@ -43,7 +43,6 @@ const UserForm = ({ userId, initialName, initialMail, initialRol }) => {
         email: mail,
         role: selectedRol,
       };
-      console.log("Datos a enviar:", newData);
       setLoadingRequest(true);
       UpdateUser(userId, newData).then(() => {
         setLoadingRequest(false);
@@ -171,3 +170,4 @@ const styles = StyleSheet.create({
 });
 
 export default UserForm;
+

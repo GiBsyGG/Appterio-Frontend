@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { colors, globalStyles } from "../../../styles/globalStyles";
 import StatusItem from "../../commons/StatusItem";
+import { GetAnimalName } from "../../../utils/GetAnimalName";
 
 const avatar = require("../../../assets/images/Animal-Avatars.png");
 
@@ -10,7 +11,9 @@ export default function AnimalInfoHeader({ animal }) {
       <View>
         <View style={styles.MainInfo}>
           <Text style={globalStyles.sectionTitle}>Especimen</Text>
-          <Text style={globalStyles.sectionTitle}>{animal.id}</Text>
+          <Text style={globalStyles.sectionTitle}>
+            {GetAnimalName(animal.id, animal.family)}
+          </Text>
         </View>
         <Text style={globalStyles.text}>
           {animal.species} - {animal.sex}
@@ -21,7 +24,7 @@ export default function AnimalInfoHeader({ animal }) {
       </View>
       <View style={styles.generalInfo}>
         <Image source={avatar} style={styles.avatar} />
-        <StatusItem status={animal.state} />
+        <StatusItem status={animal.health_status} />
         <View style={styles.generalInfoText}>
           <Text style={globalStyles.text}>Familia</Text>
           <Text style={globalStyles.text}>{animal.family}</Text>
@@ -64,3 +67,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+

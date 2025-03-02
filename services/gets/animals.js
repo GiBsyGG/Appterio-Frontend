@@ -42,7 +42,6 @@ export const GetAnimalsByRole = async (role, userId) => {
 };
 
 export const GetAnimalFamily = async (animalId) => {
-  console.log(animalId);
   try {
     const returnData = {
       animalFamily: {
@@ -61,7 +60,6 @@ export const GetAnimalFamily = async (animalId) => {
           returnData.animalSelected = animal;
         });
       });
-    console.log(returnData);
     return returnData;
   } catch (error) {
     console.error("Error en la petición:", error);

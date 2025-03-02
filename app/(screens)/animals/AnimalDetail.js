@@ -7,7 +7,6 @@ import {
   SmallHeart,
   SmallVaccine,
 } from "../../../components/commons/Icons";
-import { proceduresData, statusEnum } from "../../../data/mockData/procedures";
 import ProceduresContainer from "../../../components/specifics/ProceduresContainer";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import EditButton from "../../../components/specifics/buttons/EditButton";
@@ -16,12 +15,19 @@ import { Link } from "expo-router";
 import { BackIcon } from "../../../components/commons/Icons";
 
 export default function AnimalDetail({ animal }) {
-  const animalProcedures = proceduresData.filter(
-    (procedure) =>
-      procedure.specimenID === animal.id &&
-      (procedure.status === statusEnum.NUEVO ||
-        procedure.status === statusEnum.PENDIENTE)
-  );
+  //const [animalProcedures, setAnimalProcedures] = useState([]);
+
+  const proceduresModified = animal.procedures.map((procedure) => {
+    return {
+      ...procedure,
+      animalInfo: {
+        id: animal.id,
+        sex: animal.sex,
+        family: animal.family,
+        species: animal.species,
+      },
+    };
+  });
 
   return (
     <View>
@@ -36,26 +42,26 @@ export default function AnimalDetail({ animal }) {
           <View style={styles.containerObservations}>
             <CardObservation
               title={"Dieta"}
-              date={animal.details.dieta.lastUpdate}
-              description={animal.details.dieta.description}
+              date={animal.details.diet.last_update}
+              description={animal.details.diet.description}
               IconComponent={SmallFood}
             />
             <CardObservation
               title={"Últimas observaciones"}
-              date={animal.details.ultimasObservaciones.lastUpdate}
-              description={animal.details.ultimasObservaciones.description}
+              date={animal.details.last_observations.last_update}
+              description={animal.details.last_observations.description}
               IconComponent={SmallList}
             />
             <CardObservation
               title={"Signos clínicos"}
-              date={animal.details.signosClinicos.lastUpdate}
-              description={animal.details.signosClinicos.description}
+              date={animal.details.clinical_signs.last_update}
+              description={animal.details.clinical_signs.description}
               IconComponent={SmallHeart}
             />
             <CardObservation
               title={"Vacunas"}
-              date={animal.details.vacunas.lastUpdate}
-              description={animal.details.vacunas.description}
+              date={animal.details.vaccines.last_update}
+              description={animal.details.vaccines.description}
               IconComponent={SmallVaccine}
             />
             <View style={styles.proceduresContainer}>
@@ -64,7 +70,13 @@ export default function AnimalDetail({ animal }) {
                   Procedimientos Pendientes
                 </Text>
               </View>
-              <ProceduresContainer procedures={animalProcedures} />
+              {proceduresModified.length > 0 ? (
+                <ProceduresContainer procedures={proceduresModified} />
+              ) : (
+                <Text style={globalStyles.text}>
+                  No hay procedimientos pendientes
+                </Text>
+              )}
             </View>
           </View>
         </View>

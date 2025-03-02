@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { globalStyles, colors } from "../../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { profiles } from "../../../../data/mockData/Profiles";
+import { GetKeepersData } from "../../../../services/gets/users";
+import { UpdateAnimal } from "../../../../services/put/animals";
+import { set } from "react-hook-form";
 
 const AnimalForm = ({
   animalId,
@@ -16,15 +25,17 @@ const AnimalForm = ({
   animalVaccines,
   animalKeeper,
   animalState,
+  animalAge,
 }) => {
   const getKeepers = () => {
-    const keepers = profiles.filter((profile) => profile.rol === "cuidador");
-
-    const keepersChoices = keepers.map((profile) => ({
-      label: profile.nombre,
-      value: profile.id,
-    }));
-    setKeepers(keepersChoices);
+    GetKeepersData().then((response) => {
+      const keepers = response.map((keeper) => ({
+        label: keeper.name,
+        value: keeper.id,
+      }));
+      setKeepers(keepers);
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -41,12 +52,13 @@ const AnimalForm = ({
   const [selectedKeeper, setSelectedKeeper] = useState(animalKeeper);
   const [selectedState, setSelectedState] = useState(animalState);
   const [states, setStates] = useState([
-    { label: "Saludable", value: "Saludable" },
-    { label: "Cuidado", value: "Cuidado" },
-    { label: "Deceso", value: "Deceso" },
+    { label: "Saludable", value: "SALUDABLE" },
+    { label: "Cuidado", value: "CUIDADO" },
+    { label: "Deceso", value: "DECESO" },
   ]);
   const [keepers, setKeepers] = useState([]);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const validateFields = () => {
@@ -67,19 +79,33 @@ const AnimalForm = ({
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        weight,
-        diet,
-        observations,
-        clinicSigns,
-        vaccines,
-        selectedKeeper,
+      const newData = {
+        health_status: selectedState,
+        weight: weight,
+        age: animalAge,
+        diet: diet,
+        last_observations: observations,
+        clinical_signs: clinicSigns,
+        vaccines: vaccines,
+        keeper_id: selectedKeeper,
+      };
+
+      UpdateAnimal(animalId, newData).then(() => {
+        setLoading(true);
+        router.push("/animals");
       });
-      router.push("/animals");
     } else {
       console.log("Formulario inválido");
     }
   };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <ScrollView scrollEnabled={!openKeepers} nestedScrollEnabled={true}>
@@ -249,3 +275,4 @@ const styles = StyleSheet.create({
 });
 
 export default AnimalForm;
+

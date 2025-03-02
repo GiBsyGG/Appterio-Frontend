@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { statusEnum } from "../../data/mockData/procedures";
-import { animalStatus } from "../../data/mockData/Animals";
+import { animalStatus } from "../../utils/AnimalsStatusEnum";
 import { investigationEnum } from "../../data/mockData/Investigations";
 import { colors, globalStyles } from "../../styles/globalStyles";
 
@@ -89,3 +89,4 @@ export default function StatusItem({ status }) {
     </View>
   );
 }
+
