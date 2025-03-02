@@ -23,10 +23,8 @@ export default function Index() {
       setLoading(false);
       if (response.status === 404) {
         setRequests([]);
-        console.log(requests);
       } else {
         setRequests(response.data);
-        console.log(requests);
       }
     });
   }, [refresh]);

@@ -2,33 +2,25 @@ import axios from "axios";
 import config from "../config";
 
 export const GetRequestKeeper = async (keeperId) => {
-  const response = await axios
-    .get(`${config.BASE_URL}/request/keeper/${keeperId}`)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      if (error.response && error.response.status === 404) {
-        return error.response;
-      } else {
-        throw error;
-      }
-    });
+  try {
+    const response = await axios.get(
+      `${config.BASE_URL}/request/keeper/${keeperId}`
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
 };
 
 export const GetRequestInvestigator = async (investigatorId) => {
-  const response = await axios
-    .get(`${config.BASE_URL}/request/researcher/${investigatorId}`)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      if (error.response && error.response.status === 404) {
-        return error.response;
-      } else {
-        throw error;
-      }
-    });
+  try {
+    const response = await axios.get(
+      `${config.BASE_URL}/request/researcher/${investigatorId}`
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
 };
 
 export const GetRequestByRole = async (role, userId) => {
@@ -39,3 +31,4 @@ export const GetRequestByRole = async (role, userId) => {
     return GetRequestInvestigator(userId);
   }
 };
+

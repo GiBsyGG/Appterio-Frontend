@@ -20,7 +20,7 @@ export default function AnimalDetail({ animal }) {
   const proceduresModified = animal.procedures.map((procedure) => {
     return {
       ...procedure,
-      animalInfo: {
+      specimen: {
         id: animal.id,
         sex: animal.sex,
         family: animal.family,

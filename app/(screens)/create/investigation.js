@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { animals } from "../../../data/mockData/Animals";
+import { GetAliveAnimalsData } from "../../../services/gets/animals";
+import useAuthStore from "../../../Auth/authStore";
+import { PostResearch } from "../../../services/posts/research";
 
 const InvestigationForm = () => {
   const [title, setTitle] = useState("");
@@ -15,17 +23,22 @@ const InvestigationForm = () => {
   const [specimens, setSpecimens] = useState([]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuthStore();
 
   useEffect(() => {
     getSpecimens();
   }, []);
 
   const getSpecimens = () => {
-    const specimens = animals.map((animal) => ({
-      label: animal.id,
-      value: animal.id,
-    }));
-    setSpecimens(specimens);
+    GetAliveAnimalsData().then((data) => {
+      const specimens = data.map((animal) => ({
+        label: `${animal.family}${animal.id.slice(0, 3)} - ${animal.species} - ${animal.sex}`,
+        value: animal.id,
+      }));
+      setSpecimens(specimens);
+      setLoading(false);
+    });
   };
 
   const validateFields = () => {
@@ -41,16 +54,30 @@ const InvestigationForm = () => {
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        title,
-        description,
-        selectedSpecimen,
+      setLoading(true);
+      const newData = {
+        title: title,
+        description: description,
+        specimen_id: selectedSpecimen,
+        researcher_id: user.userId,
+        status: "ABIERTA",
+      };
+      PostResearch(newData).then(() => {
+        router.push("/animals");
+        setLoading(false);
       });
-      router.push("/animals");
     } else {
       console.log("Formulario inválido");
     }
   };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -163,3 +190,4 @@ const styles = StyleSheet.create({
 });
 
 export default InvestigationForm;
+

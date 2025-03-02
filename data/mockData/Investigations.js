@@ -1,7 +1,4 @@
-export const investigationEnum = {
-  ENCURSO: "En curso",
-  CERRADA: "Cerrada",
-};
+import { investigationEnum } from "../../utils/ResearchStatusEnum";
 
 export const investigations = [
   {

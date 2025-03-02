@@ -1,20 +1,28 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ProceduresContainer from "../../components/specifics/ProceduresContainer";
 import { globalStyles } from "../../styles/globalStyles";
+import CreateButton from "../../components/commons/Buttons/CreateButton";
 
 export default function ProceduresKeeper({ procedures, onRefresh }) {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View>
-          <Text style={globalStyles.screenTitle}>Procedimientos Asignados</Text>
-          <Text style={globalStyles.lightText}>
-            Procedimientos: {procedures.length}
-          </Text>
+    <View style={{ height: "100%", position: "relative" }}>
+      <ScrollView>
+        <View style={styles.container}>
+          <View>
+            <Text style={globalStyles.screenTitle}>
+              Procedimientos Asignados
+            </Text>
+            <Text style={globalStyles.lightText}>
+              Procedimientos: {procedures.length}
+            </Text>
+          </View>
+          <ProceduresContainer procedures={procedures} onRefresh={onRefresh} />
         </View>
-        <ProceduresContainer procedures={procedures} onRefresh={onRefresh} />
+      </ScrollView>
+      <View style={styles.ButtonsContainer}>
+        <CreateButton urlButton={"create/procedure"} />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -25,5 +33,12 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 8,
   },
+  ButtonsContainer: {
+    justifyContent: "space-between",
+    alignContent: "center",
+    gap: 28,
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+  },
 });
-

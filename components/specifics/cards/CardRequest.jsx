@@ -3,18 +3,17 @@ import { colors, globalStyles } from "../../../styles/globalStyles";
 import { profiles } from "../../../data/mockData/Profiles";
 import ProfileResume from "../resumeInfo/ProfileResume";
 import StatusItem from "../../commons/StatusItem";
+import useAuthStor from "../../../Auth/authStore";
 
 export default function CardRequest({ request, onPress }) {
-  const GetProfileById = (id) => {
-    return profiles.find((profile) => profile.id === id);
-  };
+  const { user } = useAuthStor();
 
   var profileInfo = null;
 
-  if (isInvestigator) {
-    profileInfo = GetProfileById(request.asignadoID);
+  if (user.role === "investigador") {
+    profileInfo = request.keeper;
   } else {
-    profileInfo = GetProfileById(request.solicitanteID);
+    profileInfo = request.researcher;
   }
 
   return (

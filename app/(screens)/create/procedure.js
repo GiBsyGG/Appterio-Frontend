@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-
 import { CreateProcedure } from "../../../services/posts/procedures";
 import useAuthStore from "../../../Auth/authStore";
-import { GetAnimalName } from "../../../utils/GetAnimalName";
 import { GetAliveAnimalsData } from "../../../services/gets/animals";
 
 const ProcedureForm = () => {
@@ -17,12 +21,11 @@ const ProcedureForm = () => {
   const [open, setOpen] = useState(false);
   const [selectedSpecimen, setSelectedSpecimen] = useState(null);
   const [specimens, setSpecimens] = useState([]);
-  const [user_id, setUserid] = useState([]);
-  const [status, setStatus] = useState(["PENDIENTES"]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const { user } = useAuthStore();
   const userId = user.userId;
+  const [loading, setLoading] = useState(true);
 
   const getSpecimens = () => {
     GetAliveAnimalsData().then((data) => {
@@ -31,6 +34,7 @@ const ProcedureForm = () => {
         value: animal.id,
       }));
       setSpecimens(specimens);
+      setLoading(false);
     });
   };
 
@@ -51,10 +55,12 @@ const ProcedureForm = () => {
 
   const handleSubmit = () => {
     if (validateFields()) {
+      setLoading(true);
       // Importante: pasar selectedSpecimen, no specimens
       CreateProcedure(title, description, selectedSpecimen, userId, "PENDIENTE")
         .then(() => {
           router.push("/");
+          setLoading(false);
         })
         .catch((error) => {
           console.error("Error al crear el procedimiento:", error);
@@ -63,6 +69,14 @@ const ProcedureForm = () => {
       console.log("Formulario inválido");
     }
   };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -175,4 +189,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProcedureForm;
-

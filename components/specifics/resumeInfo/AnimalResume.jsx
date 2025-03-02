@@ -5,6 +5,7 @@ import { GetAnimalName } from "../../../utils/GetAnimalName";
 const AnimalAvatar = require("../../../assets/images/Animal-Avatars.png");
 
 export default function AnimalResume({ animal }) {
+  console.log(animal);
   return (
     <View style={styles.container}>
       <Image source={AnimalAvatar} style={styles.avatar} />

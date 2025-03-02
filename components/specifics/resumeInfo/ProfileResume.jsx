@@ -3,7 +3,7 @@ import { globalStyles, colors } from "../../../styles/globalStyles";
 import { GetInitials } from "../../../utils/GetInitials";
 
 export default function ProfileResume({ profile }) {
-  const profileInitials = GetInitials(profile.nombre);
+  const profileInitials = GetInitials(profile.name);
 
   return (
     <View style={styles.container}>
@@ -11,9 +11,9 @@ export default function ProfileResume({ profile }) {
         <Text style={styles.avatarInitials}>{profileInitials}</Text>
       </View>
       <View>
-        <Text style={globalStyles.smallTitle}>{profile.nombre}</Text>
+        <Text style={globalStyles.smallTitle}>{profile.name}</Text>
         <View>
-          <Text style={globalStyles.smallText}>{profile.rol}</Text>
+          <Text style={globalStyles.smallText}>{profile.role}</Text>
         </View>
       </View>
     </View>
@@ -43,3 +43,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+

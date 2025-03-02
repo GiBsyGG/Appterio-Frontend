@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { statusEnum } from "../../utils/StatusEnum";
 import { animalStatus } from "../../utils/AnimalsStatusEnum";
-import { investigationEnum } from "../../data/mockData/Investigations";
+import { investigationEnum } from "../../utils/ResearchStatusEnum";
 import { colors, globalStyles } from "../../styles/globalStyles";
 
 export default function StatusItem({ status }) {
@@ -21,7 +21,7 @@ export default function StatusItem({ status }) {
         return colors.primaryOrange;
       case animalStatus.DESCESO:
         return colors.primaryRed;
-      case investigationEnum.ENCURSO:
+      case investigationEnum.ABIERTA:
         return colors.primaryGreen;
       case investigationEnum.CERRADA:
         return colors.gray4;
@@ -46,7 +46,7 @@ export default function StatusItem({ status }) {
         return colors.lightOrange;
       case animalStatus.DESCESO:
         return colors.lightRed;
-      case investigationEnum.ENCURSO:
+      case investigationEnum.ABIERTA:
         return colors.lightGreen;
       case investigationEnum.CERRADA:
         return colors.gray1;
@@ -93,4 +93,3 @@ export default function StatusItem({ status }) {
     </View>
   );
 }
-

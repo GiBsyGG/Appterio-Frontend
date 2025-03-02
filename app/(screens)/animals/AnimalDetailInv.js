@@ -17,7 +17,7 @@ export default function AnimalDetailInv({ animal }) {
   const researchesModified = animal.researches.map((research) => {
     return {
       ...research,
-      animalInfo: {
+      specimen: {
         id: animal.id,
         sex: animal.sex,
         family: animal.family,
@@ -120,3 +120,4 @@ const styles = StyleSheet.create({
     right: 20,
   },
 });
+

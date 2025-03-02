@@ -18,6 +18,7 @@ export default function Index() {
   };
 
   useEffect(() => {
+    console.log(user.userId);
     GetProcedureByRole(user.role, user.userId).then((response) => {
       setLoading(false);
       if (response.status === 404) {
