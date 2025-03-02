@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "../config";
-import { set } from "react-hook-form";
 
 // Passing configuration object to axios
 export const GetUsersData = async (setAllUsers) => {
@@ -24,5 +23,14 @@ export const GetUsersDataById = async (userId, setUserData) => {
     setUserData(response.data);
   } catch (error) {
     console.error("Error en la petición de usuario por ID:", error);
+  }
+};
+
+export const GetKeepersData = async () => {
+  try {
+    const response = await axios.get(`${config.BASE_URL}/user/?role=cuidador`);
+    return response.data;
+  } catch (error) {
+    console.error("Error en la petición de cuidadores:", error);
   }
 };

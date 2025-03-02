@@ -1,8 +1,4 @@
-export const animalStatus = {
-  SALUDABLE: "Saludable",
-  DESCESO: "Deceso",
-  CUIDADO: "Cuidado",
-};
+import { animalStatus } from "../../utils/AnimalsStatusEnum";
 
 export const animals = [
   {
@@ -346,3 +342,4 @@ export const animals = [
     keeperId: 2,
   },
 ];
+
