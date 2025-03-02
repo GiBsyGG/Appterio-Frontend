@@ -7,21 +7,33 @@ import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
 import { animals } from "../../../data/mockData/Animals";
 
+import { CreateProcedure } from "../../../services/posts/procedures";
+import useAuthStore from "../../../Auth/authStore";
+import { GetAnimalName } from "../../../utils/GetAnimalName";
+import { GetAliveAnimalsData } from "../../../services/gets/animals";
+
 const ProcedureForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedSpecimen, setSelectedSpecimen] = useState(null);
-  const [specimens, setSpecimens] = useState([]);
+  const [specimens , setSpecimens] = useState([]);
+  const [user_id, setUserid] = useState([]);
+  const [status, setStatus] = useState(["PENDIENTES"]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
+  const { user } = useAuthStore();
+  const userId = user.userId;
+
 
   const getSpecimens = () => {
-    const specimens = animals.map((animal) => ({
-      label: animal.id,
-      value: animal.id,
-    }));
-    setSpecimens(specimens);
+    GetAliveAnimalsData().then((data) => {
+      const specimens = data.map((animal) => ({
+        label: GetAnimalName(animal.id),
+        value: animal.id,
+      }));
+      setSpecimens(specimens);
+    }) 
   };
 
   useEffect(() => {
@@ -41,12 +53,14 @@ const ProcedureForm = () => {
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        title,
-        description,
-        selectedSpecimen,
-      });
-      router.push("/myTasks");
+      // Importante: pasar selectedSpecimen, no specimens
+      CreateProcedure(title, description, selectedSpecimen, userId, "PENDIENTE")
+        .then(() => {
+          router.push("/");
+        })
+        .catch((error) => {
+          console.error("Error al crear el procedimiento:", error);
+        });
     } else {
       console.log("Formulario inválido");
     }

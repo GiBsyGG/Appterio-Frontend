@@ -5,6 +5,14 @@ import { GetAnimalName } from "../../../utils/GetAnimalName";
 const AnimalAvatar = require("../../../assets/images/Animal-Avatars.png");
 
 export default function AnimalResume({ animal }) {
+  if (!animal) {
+    return (
+      <View style={styles.container}>
+        <Text style={globalStyles.smallText}>Cargando información...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Image source={AnimalAvatar} style={styles.avatar} />
@@ -35,3 +43,4 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+
