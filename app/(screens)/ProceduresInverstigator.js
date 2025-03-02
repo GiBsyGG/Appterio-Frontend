@@ -3,9 +3,9 @@ import ProceduresContainer from "../../components/specifics/ProceduresContainer"
 import { globalStyles } from "../../styles/globalStyles";
 import CreateButton from "../../components/commons/Buttons/CreateButton";
 
-export default function ProceduresInvestigator({ procedures }) {
+export default function ProceduresInvestigator({ procedures, onRefresh }) {
   return (
-    <View>
+    <View style={{ height: "100%", position: "relative" }}>
       <ScrollView>
         <View style={styles.container}>
           <View>
@@ -14,7 +14,7 @@ export default function ProceduresInvestigator({ procedures }) {
               Procedimientos: {procedures.length}
             </Text>
           </View>
-          <ProceduresContainer procedures={procedures} />
+          <ProceduresContainer procedures={procedures} onRefresh={onRefresh} />
         </View>
       </ScrollView>
       <View style={styles.ButtonsContainer}>

@@ -5,7 +5,6 @@ import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { animals } from "../../../data/mockData/Animals";
 
 import { CreateProcedure } from "../../../services/posts/procedures";
 import useAuthStore from "../../../Auth/authStore";
@@ -17,7 +16,7 @@ const ProcedureForm = () => {
   const [description, setDescription] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedSpecimen, setSelectedSpecimen] = useState(null);
-  const [specimens , setSpecimens] = useState([]);
+  const [specimens, setSpecimens] = useState([]);
   const [user_id, setUserid] = useState([]);
   const [status, setStatus] = useState(["PENDIENTES"]);
   const [errors, setErrors] = useState({});
@@ -25,15 +24,14 @@ const ProcedureForm = () => {
   const { user } = useAuthStore();
   const userId = user.userId;
 
-
   const getSpecimens = () => {
     GetAliveAnimalsData().then((data) => {
       const specimens = data.map((animal) => ({
-        label: GetAnimalName(animal.id),
+        label: `${animal.family}${animal.id.slice(0, 3)} - ${animal.species} - ${animal.sex}`,
         value: animal.id,
       }));
       setSpecimens(specimens);
-    }) 
+    });
   };
 
   useEffect(() => {
@@ -177,3 +175,4 @@ const styles = StyleSheet.create({
 });
 
 export default ProcedureForm;
+

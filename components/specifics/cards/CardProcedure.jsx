@@ -4,8 +4,6 @@ import AnimalResume from "../resumeInfo/AnimalResume";
 import StatusItem from "../../commons/StatusItem";
 
 export default function CardProcedure({ procedure, onPress }) {
-  console.log(procedure);
-
   return (
     <TouchableOpacity
       onPress={() => {
@@ -24,7 +22,7 @@ export default function CardProcedure({ procedure, onPress }) {
           </Text>
         </View>
         <View style={styles.cardInfoBox}>
-          <AnimalResume animal={procedure.animalInfo} />
+          <AnimalResume animal={procedure.specimen} />
           <StatusItem status={procedure.status} />
         </View>
       </View>

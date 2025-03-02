@@ -1,9 +1,4 @@
-export const statusEnum = {
-  NUEVO: "Nuevo",
-  PENDIENTE: "Pendiente",
-  HECHO: "Hecho",
-};
-
+import { statusEnum } from "../../utils/StatusEnum";
 // Procedures for lab animals mock data contains, an id, name, description (long), and date.
 export const proceduresData = [
   {

@@ -3,3 +3,4 @@ export const GetAnimalName = async (animalId, animalFamily) => {
   const animalName = `${animalFamily}${animalId.slice(0, 3)}`;
   return animalName;
 };
+

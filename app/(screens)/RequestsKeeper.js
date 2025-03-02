@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import RequestsContainer from "../../components/specifics/RequestsContainer";
 import { globalStyles } from "../../styles/globalStyles";
 
-export default function RequestsKeeper({ requests }) {
+export default function RequestsKeeper({ requests, onRefresh }) {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -12,7 +12,7 @@ export default function RequestsKeeper({ requests }) {
             Solicitudes: {requests.length}
           </Text>
         </View>
-        <RequestsContainer requests={requests} isInvestigator={false} />
+        <RequestsContainer requests={requests} onRefresh={onRefresh} />
       </View>
     </ScrollView>
   );
@@ -26,3 +26,4 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 });
+

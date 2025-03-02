@@ -76,4 +76,3 @@ export const GetAnimalById = async (animalId) => {
     console.error("Error en la petición:", error);
   }
 };
-

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ProceduresContainer from "../../components/specifics/ProceduresContainer";
 import { globalStyles } from "../../styles/globalStyles";
 
-export default function ProceduresKeeper({ procedures }) {
+export default function ProceduresKeeper({ procedures, onRefresh }) {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -12,7 +12,7 @@ export default function ProceduresKeeper({ procedures }) {
             Procedimientos: {procedures.length}
           </Text>
         </View>
-        <ProceduresContainer procedures={procedures} />
+        <ProceduresContainer procedures={procedures} onRefresh={onRefresh} />
       </View>
     </ScrollView>
   );
@@ -26,3 +26,4 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 });
+

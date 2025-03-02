@@ -1,4 +1,4 @@
-import { statusEnum } from "./procedures";
+import { statusEnum } from "../../utils/StatusEnum";
 
 export const requests = [
   {
@@ -102,3 +102,4 @@ export const requests = [
     status: statusEnum.HECHO,
   },
 ];
+

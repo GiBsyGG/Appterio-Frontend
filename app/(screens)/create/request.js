@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { globalStyles, colors } from "../../../styles/globalStyles";
 import DropDownPicker from "react-native-dropdown-picker";
 import ButtonRegular from "../../../components/commons/Buttons/ButtonRegular";
 import { BackIcon } from "../../../components/commons/Icons";
 import { Link, useRouter } from "expo-router";
-import { profiles } from "../../../data/mockData/Profiles";
+import { PostRequest } from "../../../services/posts/request";
+import { GetKeepersData } from "../../../services/gets/users";
+import useAuthStore from "../../../Auth/authStore";
 
 const RequestForm = () => {
   const [title, setTitle] = useState("");
@@ -15,15 +23,18 @@ const RequestForm = () => {
   const [keepers, setKeepers] = useState([]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuthStore();
 
   const getKeepers = () => {
-    const keepers = profiles.filter((profile) => profile.rol === "cuidador");
-
-    const keepersChoices = keepers.map((profile) => ({
-      label: profile.nombre,
-      value: profile.id,
-    }));
-    setKeepers(keepersChoices);
+    GetKeepersData().then((response) => {
+      const keepersChoices = response.map((keeper) => ({
+        label: keeper.name,
+        value: keeper.id,
+      }));
+      setKeepers(keepersChoices);
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -43,16 +54,29 @@ const RequestForm = () => {
 
   const handleSubmit = () => {
     if (validateFields()) {
-      console.log("Formulario válido:", {
-        title,
-        description,
-        selectedKeeper,
+      const newData = {
+        title: title,
+        description: description,
+        researcher_id: user.userId,
+        keeper_id: selectedKeeper,
+        status: "PENDIENTE",
+      };
+      PostRequest(newData).then(() => {
+        router.push("/");
       });
-      router.push("/requests");
+      router.push("/");
     } else {
       console.log("Formulario inválido");
     }
   };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={colors.primaryBlue} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -165,3 +189,4 @@ const styles = StyleSheet.create({
 });
 
 export default RequestForm;
+

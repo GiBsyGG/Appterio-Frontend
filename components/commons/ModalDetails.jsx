@@ -35,7 +35,6 @@ export default function ModalDetails({
               {description}
             </Text>
             <View style={styles.subjectContainer}>
-              <Text style={globalStyles.title}>{subjectText}</Text>
               <StatusItem status={elementStatus} />
             </View>
             {isEditable && (

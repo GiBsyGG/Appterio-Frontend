@@ -4,7 +4,7 @@ import { profiles } from "../../../data/mockData/Profiles";
 import ProfileResume from "../resumeInfo/ProfileResume";
 import StatusItem from "../../commons/StatusItem";
 
-export default function CardRequest({ request, isInvestigator, onPress }) {
+export default function CardRequest({ request, onPress }) {
   const GetProfileById = (id) => {
     return profiles.find((profile) => profile.id === id);
   };
@@ -73,3 +73,4 @@ const styles = StyleSheet.create({
     height: 60,
   },
 });
+

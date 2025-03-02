@@ -3,9 +3,9 @@ import RequestsContainer from "../../components/specifics/RequestsContainer";
 import { globalStyles } from "../../styles/globalStyles";
 import CreateButton from "../../components/commons/Buttons/CreateButton";
 
-export default function RequestsInvestigator({ requests }) {
+export default function RequestsInvestigator({ requests, onRefresh }) {
   return (
-    <View>
+    <View style={{ height: "100%", position: "relative" }}>
       <ScrollView>
         <View style={styles.container}>
           <View>
@@ -14,7 +14,7 @@ export default function RequestsInvestigator({ requests }) {
               Solicitudes: {requests.length}
             </Text>
           </View>
-          <RequestsContainer requests={requests} isInvestigator={true} />
+          <RequestsContainer requests={requests} onRefresh={onRefresh} />
         </View>
       </ScrollView>
       <View style={styles.ButtonsContainer}>
@@ -40,3 +40,4 @@ const styles = StyleSheet.create({
     right: 20,
   },
 });
+
