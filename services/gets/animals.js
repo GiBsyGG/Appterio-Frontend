@@ -21,6 +21,53 @@ export const GetAnimalsKeeper = async (keeperId) => {
   }
 };
 
+export const GetAnimalsInvestigator = async (investigatorId) => {
+  try {
+    const response = await axios.get(
+      `${config.BASE_URL}/animal/researcher/${investigatorId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error en la petición:", error);
+  }
+};
+
+export const GetAnimalsByRole = async (role, userId) => {
+  if (role === "cuidador") {
+    return GetAnimalsKeeper(userId);
+  }
+  if (role === "investigador") {
+    return GetAnimalsInvestigator(userId);
+  }
+};
+
+export const GetAnimalFamily = async (animalId) => {
+  console.log(animalId);
+  try {
+    const returnData = {
+      animalFamily: {
+        parents: [],
+        offspring: [],
+      },
+      animalSelected: {},
+    };
+    const response = await axios
+      .get(`${config.BASE_URL}/animal/family/${animalId}`)
+      .then((response) => {
+        returnData.animalFamily = response.data;
+      })
+      .then(() => {
+        return GetAnimalById(animalId).then((animal) => {
+          returnData.animalSelected = animal;
+        });
+      });
+    console.log(returnData);
+    return returnData;
+  } catch (error) {
+    console.error("Error en la petición:", error);
+  }
+};
+
 export const GetAnimalById = async (animalId) => {
   try {
     const response = await axios.get(
@@ -31,3 +78,4 @@ export const GetAnimalById = async (animalId) => {
     console.error("Error en la petición:", error);
   }
 };
+
