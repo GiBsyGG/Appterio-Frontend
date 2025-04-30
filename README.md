@@ -1,4 +1,10 @@
-# Expo Project Setup
+# Appterio
+📱 La aplicación móvil para gestionar tus proyectos de manera eficiente.
+
+📸 Capturas de Pantalla
+<table> <tr> <td><img src="https://i.imgur.com/OWY2zVv.png" width="200" alt="Pantalla de Inicio"/></td> <td><img src="https://i.imgur.com/eAnCCeZ.png" width="200" alt="Lista de Proyectos"/></td> </tr> <tr> <td><img src="https://i.imgur.com/i3HrCBI.png" width="200" alt="Detalles del Proyecto"/></td> <td><img src="https://i.imgur.com/4hLKgf0.png" width="200" alt="Perfil de Usuario"/></td> </tr> </table>
+
+## Expo Project Setup
 
 Este proyecto utiliza **Expo** para el desarrollo de aplicaciones móviles en React Native.
 
